@@ -1,0 +1,27 @@
+.login-btn{
+    color: blue !important;
+    width: 100px;
+    transition: .9S ease-in-out;
+
+}
+.login-btn:hover{
+    color: white !important;
+}
+.signup-btn{
+    color: rgb(255, 255, 255) !important;
+    width: 100px;
+    transition: .9S ease;
+}
+.signup-btn:hover{
+    color: blue !important;
+    background-color: white;
+}
+.cart-icon{
+    padding: 1px;
+    border-radius: 10%;
+}
+.cart-icon:hover{
+    background-color: blue;
+    color: white;
+    
+}

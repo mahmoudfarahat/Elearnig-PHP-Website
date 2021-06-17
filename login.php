@@ -16,33 +16,29 @@
  
 
 <link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/signup.css">
+<link rel="stylesheet" href="css/login.css">
  
 </head>
 <body>
-  
+    <?php  require('nav.php')   ?>
      
      <div class="container d-flex justify-content-center  ">
         <form  class="signup-form col-lg-4 col-xxl-3 col-md-5 col-sm-7">
-          <h4>Sign Up and Start Learning!</h4>
+          <h4>Log in to Your Account</h4>
           <hr>
-            <div class="mb-3">
-                <input type="text" placeholder="Full Name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-              </div>
-            <div class="mb-3 ">
+          <button type="submit" class="btn btn-primary submit-btn mb-3">Continue with Facebook</button>
+          <button type="submit" class="btn btn-outline-primary submit-btn mb-3">Continue with Google</button>
+           
+          <div class="mb-3 ">
               <input type="email" placeholder="Email "  class="form-control  " id="exampleInputEmail1" aria-describedby="emailHelp">
             </div>  
             <div class="mb-3">
               <input type="password" placeholder="Password"  class="form-control" id="exampleInputPassword1">
             </div>
-            <div class="mb-3 form-check">
-              <input type="checkbox" class="form-check-input" id="exampleCheck1">  
-              <label class="form-check-label" for="exampleCheck1">Yes! I want to receive emails</label>
-            </div>
-            <button type="submit" class="btn btn-danger submit-btn">Sign Up</button>
-            <div class="my-3">By signing up, you agree to our Terms of Use and Privacy Policy.</div>
+            <button type="submit" class="btn btn-primary submit-btn">Log In</button>
+            <div class="my-3">or <a href="https://localhost/elearnproject/forgotpassword.php">Forgot Password</a></div>
             <hr>
-            <div>Already have an account? <a href=""> Log In</a></div>
+            <div>Don't have an account? <a href="https://localhost/elearnproject/signup.php">Sign up</a></div>
           </form>
 
      </div>

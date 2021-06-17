@@ -6,6 +6,6 @@
     height: 190px;
 }
 
-.card{
-    cursor: pointer;
+a{
+    text-decoration: none;
 }

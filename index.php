@@ -19,6 +19,8 @@
 <link rel="stylesheet" href="css/courses.css">
 </head>
 <body>
+
+<?php require('nav.php') ?>
     <div class="container my-5 ">
       <div class="row ">
         <div class="d-flex my-3 justify-content-between col-3">
@@ -125,7 +127,7 @@
             <div class="col-9">
 <!-- Start Courses Cards -->
  <div class="d-flex flex-wrap ">
-  <a href="showcourse.html" class="">
+  <a href="showcourse.php" class="">
     <div class="card mx-2" style="width: 15rem;">
       <img src="images/course-logo-1.png" class="card-img-top" alt="...">
       <div class="card-body">

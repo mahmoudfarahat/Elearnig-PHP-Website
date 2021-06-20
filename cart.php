@@ -19,9 +19,12 @@
 <link rel="stylesheet" href="css/cart.css">
 </head>
 <body>
-    <div class="container-fluid   ">
+  <?php require('nav.php'); ?>
+
+
+    <section>
         <h2 class="cart-heading ">Shopping Cart</h2>
-    </di>
+</section>
     <div class="container">
         <div class="row card-cart my-5 ">
             <div class="col-9">

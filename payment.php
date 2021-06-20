@@ -26,6 +26,8 @@
     <link rel="stylesheet" href="css/payment.css" />
   </head>
   <body>
+
+    <?php require('nav.php')  ?>
     <div class="container my-3">
       <div class="row payment-design">
         <div class="col-7">

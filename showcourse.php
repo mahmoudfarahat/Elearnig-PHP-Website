@@ -22,7 +22,7 @@
  
 <body>
 
-   
+<?php  require('nav.php') ?>   
 
     <div class="container    my-5">
         <div class="row information-container">
@@ -42,7 +42,7 @@
                 <p>
                     The modern JavaScript course for everyone! Master JavaScript with projects, challenges and theory. Many courses in one!
                 </p>
-                <div>Created by <a href="">Instructor Name</a></div>
+                <div>Created by <a href="instructorprofile.html">Instructor Name</a></div>
                 <div class="my-3">
                     <span>Last updated</span> <span>English</span>
                 </div>
@@ -130,7 +130,7 @@
                     <div class="card-body">
                       <h5 class="card-title">$122</h5>
                       <a href="cart.html" class="btn btn-danger cart-btn my-2">Add to cart</a>
-                      <a href="payment.html" class="btn btn-outline-primary buy-btn my-1 ">Buy now</a>
+                      <a href="payment.php" class="btn btn-outline-primary buy-btn my-1 ">Buy now</a>
                       <p class="text-center">30-day Money-Back Gurantee</p>
                     <p>This course includes:</p>
                         <ul>

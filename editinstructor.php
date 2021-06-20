@@ -20,15 +20,17 @@
  
 </head>
 <body>
+  <?php  require('nav.php') ?>
+
 <div class="container">
     <div class="row profile " >
         <div class="col-5">
             <h2>Edit Profile</h2>
-            <form class=" p-2 border   ">
+            <form class=" p-2 border    ">
                 <div class="mb-3">
                     <input placeholder="Name" name="name"  class="form-control"  >
                   </div>
-                  <div class="mb-3">
+                  <div class="mb-3 ">
                     <input placeholder="Profession" type="text" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp">
                   </div>
                 <div class="mb-3">
@@ -41,7 +43,7 @@
                   <div class="mb-3">
                     <input placeholder="Twitter" type="text" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp">
                   </div>
-                  <div class="mb-3">
+                  <div class="mb-3 ">
                     <input placeholder="Linkedin" type="text" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp">
                   </div>
                 <div class="mb-3">
@@ -51,7 +53,10 @@
               </form>
         </div>
         <div class="col-7">
-            <div>My courses <span>(8)</span></div>
+          <div class="d-flex justify-content-between ">
+            <div class="align-self-center">My courses <span>(8)</span></div>
+            <a href="addCourse.php" class="btn btn-outline-success">Add a New Course</a>
+          </div>
             <div class="d-flex flex-wrap justify-content-between">
                 <div class="card  my-2" style="width: 15rem;">
                     <img src="images/course-logo-1.png" class="card-img-top" alt="...">

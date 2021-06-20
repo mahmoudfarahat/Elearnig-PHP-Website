@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="css/addcourse.css" />
   </head>
   <body>
+    <?php require('nav.php') ?>
     <div class="container">
       <form class=" my-5 p-3 border">
         <div class="row">

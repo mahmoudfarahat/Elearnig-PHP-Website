@@ -45,20 +45,22 @@ include'functions.php';
 
       
         $password = sha1($password); 
-        print_r($password);
+         
         $sql = "select * from  instructors where email='$email' and password = '$password' " ;
 
-        // $sql_2 = "select * from students  where email='$email' and password = '$password' " ;
-
-        // if (isset($sql)){
-        //  
-        // }else if (isset($sql_2)){
-        //   $op = mysqli_query($con,$sq);
-        // }
-        $op = mysqli_query($con,$sql);
- 
+        $sql_2 = "select * from students  WHERE  email='$email' and password = '$password' " ;
+      
+       
+          $op = mysqli_query($con,$sql);
+         
+          $op_2 = mysqli_query($con,$sql_2);
+      
+      
         $count = mysqli_num_rows($op);
- 
+        $count_2 = mysqli_num_rows($op_2);
+
+        print_r($count);
+        print_r($count_2);
         if($count == 1){
             // login code .... 
 
@@ -69,7 +71,15 @@ include'functions.php';
        
             header("Location: index.php")   ;
 
-        }else{
+        }else if($count_2 == 1 ) {
+          $data = mysqli_fetch_assoc($op_2);
+          
+          $_SESSION['id']   =  $data['id'] ;
+          $_SESSION['Name'] =  $data['Name'] ;
+       
+            header("Location: index.php")   ;
+        }   
+        else{
             echo 'Error in Email || Password try again ';
         }
 

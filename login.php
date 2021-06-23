@@ -59,8 +59,7 @@ include'functions.php';
         $count = mysqli_num_rows($op);
         $count_2 = mysqli_num_rows($op_2);
 
-        print_r($count);
-        print_r($count_2);
+        
         if($count == 1){
             // login code .... 
 
@@ -80,16 +79,19 @@ include'functions.php';
             header("Location: index.php")   ;
         }   
         else{
-            echo 'Error in Email || Password try again ';
+          $errorMessages['email']  = "Invalid Email";
+          $errorMessages['password']  = "Invalid Password";
+
+            // echo 'Error in Email || Password try again ';
         }
 
       }else{
 
 
-        foreach($errorMessages as $key => $messages){
+        // foreach($errorMessages as $key => $messages){
 
-            echo '*'.$key.' :  '.$messages.'<br>';
-        }
+        //     echo '*'.$key.' :  '.$messages.'<br>';
+        // }
 
 
 
@@ -124,11 +126,14 @@ include'header.php';
           <button type="submit" class="btn btn-outline-primary submit-btn mb-3">Continue with Google</button>
            
           <div class="mb-3 ">
-              <input type="email" placeholder="Email " name="email" class="form-control  " id="exampleInputEmail1" aria-describedby="emailHelp">
+              <input type="email" placeholder="Email " name="email" class="form-control  "  <?php if(isset($errorMessages["email"])) echo "style='box-shadow: 0 .5px 1px rgba(0, 0, 0, 0.045) inset, 0 0 5px  red '"  ?> >
+      <?php     if (isset($errorMessages["email"])) echo '<div class="text-danger">' .$errorMessages["email"]. '</div>'  ;  ?>
               
             </div>  
             <div class="mb-3">
-              <input type="password" placeholder="Password" name="password"  class="form-control" id="exampleInputPassword1">
+              <input type="password" placeholder="Password" name="password"  class="form-control"  <?php if(isset($errorMessages["password"])) echo "style='box-shadow: 0 .5px 1px rgba(0, 0, 0, 0.045) inset, 0 0 5px  red '"  ?>>
+      <?php     if (isset($errorMessages["password"])) echo '<div class="text-danger">' .$errorMessages["password"]. '</div>'  ;  ?>
+          
             </div>
             <button type="submit" class="btn btn-primary submit-btn">Log In</button>
             <div class="my-3">or <a href="https://localhost/elearnproject/forgotpassword.php">Forgot Password</a></div>

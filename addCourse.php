@@ -18,7 +18,14 @@
             <div class="mb-3">
               <input placeholder="Cateogry" class="form-control" />
             </div>
+            <div class="mb-3 row">
+              <label class="col-3    align-self-center " >Course Cover</label>
+              <div class="col-9">
+              <input   placeholder="" type="file" class="  form-control " />
 
+              </div>
+            </div>
+            
             <div class="mb-3">
               <textarea placeholder="ًWhat will students learn in your course?" class="form-control" name="" cols="30" rows="5"></textarea>
             </div>
@@ -34,7 +41,7 @@
           <div class="col-6">
             <div class="mb-3">
               <h3>Course Content:</h3>
-
+           
               <div class="row">
                 <div class="col-10">
                   <div class="border p-3">

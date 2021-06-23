@@ -1,5 +1,10 @@
 <?php include'header.php' ?>
-<?php require('nav.php') ?>
+<?php require('nav.php') ;
+
+  include('db.php');
+  
+echo $_SESSION['role'];
+?>
     <div class="container my-5 ">
       <div class="row ">
         <div class="d-flex my-3 justify-content-between col-3">

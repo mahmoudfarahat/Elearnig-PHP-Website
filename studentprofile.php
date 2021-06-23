@@ -1,4 +1,21 @@
- <?php include 'header.php'?>
+<?php   
+include'db.php';
+
+if(isset($_SESSION['id'])){
+
+}else {
+  header("Location: login.php");
+}
+
+
+
+?>
+
+
+ 
+
+
+<?php include 'header.php'?>
  <?php include 'nav.php'?>
 
  <section>

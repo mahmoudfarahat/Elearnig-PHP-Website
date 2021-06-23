@@ -62,21 +62,31 @@ include'functions.php';
         
         if($count == 1){
             // login code .... 
-
+            
           $data = mysqli_fetch_assoc($op);
           
           $_SESSION['id']   =  $data['id'] ;
           $_SESSION['Name'] =  $data['Name'] ;
-       
+          
+          $role = 1;
+
+         
+          
+          $_SESSION['role'] =$role;
             header("Location: index.php")   ;
 
         }else if($count_2 == 1 ) {
+
           $data = mysqli_fetch_assoc($op_2);
           
           $_SESSION['id']   =  $data['id'] ;
-          $_SESSION['Name'] =  $data['Name'] ;
+          $_SESSION['name'] =  $data['name'] ;
        
             header("Location: index.php")   ;
+            $role = 2;
+           
+          $_SESSION['role'] =$role ;
+
         }   
         else{
           $errorMessages['email']  = "Invalid Email";

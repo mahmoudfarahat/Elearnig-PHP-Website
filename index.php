@@ -3,8 +3,21 @@
 
   include('db.php');
   
-echo $_SESSION['role'];
+ 
+
+$sql = 'SELECT * FROM `courses`';
+
+$sql_2 ='SELECT COUNT(name) FROM courses';
+
+$op = mysqli_query($con,$sql);
+    
+
+ 
+ 
+ 
 ?>
+
+
     <div class="container my-5 ">
       <div class="row ">
         <div class="d-flex my-3 justify-content-between col-3">
@@ -21,13 +34,20 @@ echo $_SESSION['role'];
             </ul>
           </div>
         </div>
-        <div class=" d-flex my-3    d-flex align-items-center  flex-row-reverse    col-6">
-       1,109 results 
-             
-        </div>
-      </div>
+
+        <?php   
+
+$op_2=mysqli_query($con,$sql_2);
+
+
+$data_2 = mysqli_fetch_assoc($op_2);
+foreach($data_2 as  $x_value) {
+  echo   '<h5 class=" d-flex my-3    d-flex align-items-center  flex-row-reverse  col-7">' . $x_value .' results </h5>' ;
+   
+} 
+      
      
-  
+  ?>
         <div class="row">
             <div class="col-3">
                 <div class="accordion" id="accordionExample">
@@ -109,47 +129,28 @@ echo $_SESSION['role'];
                   </div>
             </div>
             <div class="col-9">
+
+
+
 <!-- Start Courses Cards -->
- <div class="d-flex flex-wrap ">
-  <a href="showcourse.php" class="">
+<div class="d-flex flex-wrap ">
+<?php 
+                                           while($data = mysqli_fetch_assoc($op)){
+                                           
+                                        ?>
+
+
+  <a href="showcourse.php" class="mb-3">
     <div class="card mx-2" style="width: 15rem;">
       <img src="images/course-logo-1.png" class="card-img-top" alt="...">
       <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <h5 class="card-title"><?php echo $data['name']; ?></h5>
+        <p class="card-text"><?php echo $data['price']; ?>$</p>
+
        
       </div>
     </div>
   </a>
-  
-  <a href="">
-    <div class="card mx-2" style="width: 15rem;">
-      <img src="images/course-logo-1.png" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-         
-      </div>
-    </div>
-  </a>
-      
-  <a href="">
-    <div class="card mx-2" style="width: 15rem;">
-      <img src="images/course-logo-1.png" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      </div>
-    </div>
-  </a>
-  
-
-  
-  
-
-
-
- </div>
 
     
     
@@ -157,8 +158,8 @@ echo $_SESSION['role'];
       
     
 
-            </div>
-        </div>    
+ <?php } ?>     
+ </div>
 <!-- End Courses Cards -->
 
 <!-- start Pagination -->

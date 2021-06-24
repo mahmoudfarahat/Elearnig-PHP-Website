@@ -112,7 +112,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] == 1) {
                             </svg>
                         </a>
 
-                        <ul class="dropdown-menu drop-style" style="left: -130px;  top: 53px"
+                        <ul class="dropdown-menu drop-style" style="left: -130px;  top: 56px"
                             aria-labelledby="dropdownMenuLink">
                             <li><a class="dropdown-item" href="<?php echo $link; ?>">My Profile</a></li>
                             <!-- <li><a class="dropdown-item" href="#">Another action</a></li> -->

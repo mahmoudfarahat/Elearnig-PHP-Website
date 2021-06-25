@@ -24,7 +24,7 @@ if(isset($_SESSION['id'])){
   <div class="container ">
     <div class=" d-flex justify-content-between   profile">
       <div >
-        <img   class="profile-img mb-3"  src="images/profile pic 1.jpg" alt="">
+        <img   class="profile-img mb-3" style="width:150px"  src="images/profile pic 1.jpg" alt="">
       </div>
       <div class=" ">
          

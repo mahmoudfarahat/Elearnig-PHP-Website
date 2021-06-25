@@ -1,24 +1,32 @@
 <?php   
 include'db.php';
+ 
+if(isset($_SESSION['id']) ){
 
-if(isset($_SESSION['id'])){
-
+ 
 }else {
   header("Location: login.php");
 }
  
   
  
+ //instructor
+  $sql = 'SELECT * FROM `instructors` WHERE id= '.$_SESSION['id'] ;
+  //courses
+  $sql_2 = 'SELECT * FROM `courses` WHERE instructor_id= '.$_SESSION['id'] ;
+    //count
+$sql_3 ='SELECT COUNT(name) FROM courses WHERE instructor_id= '.$_SESSION['id'];
 
-// $sql = 'SELECT * FROM `courses` WHERE instructor_id= '.$_SESSION['id'] ;
-$sql = 'SELECT courses.*, instructors.* , instructors.name as inst_name FROM courses INNER JOIN instructors ON courses.instructor_id = instructors.id where instructor_id ='.$_SESSION['id'] ;
-;
-
-$sql_2 ='SELECT COUNT(name) FROM courses WHERE instructor_id= '.$_SESSION['id'];
-
+//instructor
 $op = mysqli_query($con,$sql);
-$op_2=mysqli_query($con,$sql_2);
- $op_3 =  mysqli_query($con,$sql);
+//courses
+$op_2 = mysqli_query($con,$sql_2);
+
+//count
+$op_3=mysqli_query($con,$sql_3);
+
+
+  
 ?>
 
 
@@ -32,12 +40,12 @@ $op_2=mysqli_query($con,$sql_2);
                 <div>INSTRUCTOR</div>
                 <a href="editinstructor.php" class="btn btn-outline-danger">Edit Profile</a>
             </div>
-            <?php $data_3= mysqli_fetch_assoc($op_3); ?>
-            <h2> <?php echo  $data_3['inst_name']; ?></h2>
+            <?php $data_3= mysqli_fetch_assoc($op); ?>
+            <h2> <?php echo  $data_3['Name']; ?></h2>
             <h5 class="mb-4"><?php echo  $data_3['Profession']; ?></h5>
             <div><strong>About me</strong></div>
             <p>
-                  <?php echo  $data_3['About_me']; ?>
+                <?php echo  $data_3['About_me']; ?>
             </p>
 
 
@@ -47,7 +55,7 @@ $op_2=mysqli_query($con,$sql_2);
 
 
 
-$data_2 = mysqli_fetch_assoc($op_2);
+$data_2 = mysqli_fetch_assoc($op_3);
 foreach($data_2 as  $x_value) {
   echo   '<div class="align-self-center">'.'My courses ('. $x_value .') </div>' ;
    
@@ -62,14 +70,16 @@ foreach($data_2 as  $x_value) {
 
             <div class="d-flex flex-wrap justify-content-between">
                 <?php 
-                                           while($data = mysqli_fetch_assoc($op)){
+                                           while($data = mysqli_fetch_assoc($op_2) ){
                                            
                                         ?>
                 <div class="card  my-2" style="width: 18rem;">
                     <img src="images/course-logo-1.png" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $data['name']; ?></h5>
-                        <p class="card-text">by <?php echo  $data_3['inst_name']; ?> </p>
+                        <a href="">By
+                            <?PHP echo  $_SESSION['Name'] ?>
+                        </a>
                         <a href="#" class="btn btn-primary">Go somewhere</a>
                     </div>
                 </div>
@@ -80,8 +90,8 @@ foreach($data_2 as  $x_value) {
                 <?php  }    ?>
             </div>
         </div>
-        <div class="col-4">
-            <img class="profile-img mb-3" src="images/profile pic 1.jpg" alt="">
+        <div class="col-4"> 
+            <img class="profile-img mb-3" style="width:300px" src="images/profile pic 1.jpg" alt="">
             <a class="btn btn-outline-primary d-block mb-2">Website</a>
             <a class="btn btn-outline-primary d-block mb-2">Twitter</a>
             <a class="btn btn-outline-primary d-block mb-2">Linkedin</a>

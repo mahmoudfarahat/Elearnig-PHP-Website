@@ -20,8 +20,8 @@
 <link rel="stylesheet" href="css/addcourse.css" />
 <link rel="stylesheet" href="css/signup.css">
 <link rel="stylesheet" href="css/studentprofile.css">
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/instructorprofile.css">
 
+<link rel="stylesheet" href="css/instructorprofile.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>

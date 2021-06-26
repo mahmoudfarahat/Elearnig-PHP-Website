@@ -1,5 +1,8 @@
- <?php include 'header.php';
-require 'nav.php';
+ <?php 
+ 
+include 'db.php';
+ include 'functions.php';
+
 
 $sql = 'SELECT * FROM `instructors` WHERE id= ' . $_SESSION['id'];
 //courses
@@ -15,36 +18,155 @@ $op_2 = mysqli_query($con, $sql_2);
 //count
 $op_3 = mysqli_query($con, $sql_3);
 
-// echo $_SESSION['message']
-
+ 
+$data= mysqli_fetch_assoc($op); 
+ 
 ?>
 
+
+
+
+<?php  $errorMessages  = array();
+   $message = ""; 
+   if($_SERVER['REQUEST_METHOD'] == "POST"){
+ 
+
+
+    $name     = Clean($_POST['name']);
+    // $email    = Clean($_POST['email']);
+    // $password = Clean($_POST['password']);
+    // $role =$_POST[('role')]; 
+    if(empty($name)){
+   
+      $errorMessages['name'] = "Name Field Required";
+         
+      }else{
+            if(strlen($name) < 3){
+              $errorMessages['name']  = "Name must be >= 3";
+            }elseif (!preg_match("/^[a-zA-Z\s*']+$/",$name)) { 
+             
+                $errorMessages['name']  = "Only chars allowed";
+   
+            }    
+      }
+    //   if(empty($email)){
+    //     $errorMessages['email'] = "Email Field Required";
+    //  }else{
+    //   if(!(filter_var($email,FILTER_VALIDATE_EMAIL))){    
+    //       $errorMessages['email']  = "Invalid Email";
+    //   }
+   
+    //  }
+ 
+
+
+    //   if(empty($password)){
+    //     $errorMessages['password'] = "Password Field Required";
+    // }else{
+  
+    //     if(strlen($password) < 6){
+    //      $errorMessages['password'] = "Password Must Be >= 6 "; 
+    //     }
+  
+    // }
+     
+      if(count($errorMessages) == 0){
+
+        // $password = sha1($password);
+ 
+        //   $sql_4 = "insert into instructors ( `name`, `email`, `password`) values ('$name','$email','$password')";
+          $sql_4= "update instructors set name = '$name' where id=".$_SESSION['id']; 
+  
+        $op_4 = mysqli_query($con,$sql_4);
+  
+        if($op_4){
+             echo $message = "Updated";
+            
+        }else{
+            $message = "Try Again";
+        }
+   
+          $_SESSION['message'] = $message;
+          header("Location: editinstructor.php");
+       }else{
+          $_SESSION['error_messsage'] = $errorMessages;
+          // header("Location: add.php");
+  
+  
+       }
+      }
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php  
+require 'nav.php';
+include 'header.php'; ?>
+
+
+
+ 
  <div class="container">
      <div class="row profile ">
          <div class="col-5">
              <h2>Edit Profile</h2>
-             <form class=" p-2 border    ">
+             <form class=" p-2 border"    action="<?php htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post"           >
                  <div class="mb-3">
-                     <input placeholder="Name" name="name" class="form-control">
+                     <input placeholder="Name"  value="<?php  echo $data['Name'];?>"  name="name" class="form-control">
                  </div>
                  <div class="mb-3 ">
-                     <input placeholder="Profession" type="text" class="form-control" name="email"
+                     <input placeholder="Profession" value="<?php  echo $data['Profession'];?>"   type="text" class="form-control" name="email"
                          id="exampleInputEmail1" aria-describedby="emailHelp">
                  </div>
                  <div class="mb-3">
-                     <textarea placeholder="About me" name="" id="" cols="30" class="form-control" rows="5"></textarea>
-
+                     <textarea placeholder="About me" name="" id="" cols="30" class="form-control" rows="5"><?php  echo $data['About_me'];?></textarea>
                  </div>
                  <div class="mb-3">
-                     <input placeholder="Website" type="text" class="form-control" name="email" id="exampleInputEmail1"
+                     <input placeholder="Website" type="text" value="<?php  echo $data['Website'];?>" class="form-control" name="email" id="exampleInputEmail1"
                          aria-describedby="emailHelp">
                  </div>
                  <div class="mb-3">
-                     <input placeholder="Twitter" type="text" class="form-control" name="email" id="exampleInputEmail1"
+                     <input placeholder="Twitter" type="text" value="<?php  echo $data['Twitter'];?>"  class="form-control" name="email" id="exampleInputEmail1"
                          aria-describedby="emailHelp">
                  </div>
                  <div class="mb-3 ">
-                     <input placeholder="Linkedin" type="text" class="form-control" name="email" id="exampleInputEmail1"
+                     <input placeholder="Linkedin" type="text" value="<?php  echo $data['Linkedin'];?>" class="form-control" name="email" id="exampleInputEmail1"
                          aria-describedby="emailHelp">
                  </div>
                  <div class="mb-3">
@@ -61,17 +183,15 @@ $op_3 = mysqli_query($con, $sql_3);
 
              <div class="d-flex flex-wrap justify-content-between">
                  <?php
-while ($data = mysqli_fetch_assoc($op_2)) {
+while ($data_2 = mysqli_fetch_assoc($op_2)) {
 
     ?>
                  <div class="card  my-2" style="width: 15rem;">
                      <img src="images/course-logo-1.png" class="card-img-top" alt="...">
                      <div class="card-body">
-                         <h5 class="card-title"><?php echo $data['name']; ?></h5>
-                         <a href="">By
-                             <?PHP echo $_SESSION['Name'] ?>
-                         </a>
-                         <a href='editcourse.php?id=<?php echo $data['id'];?>' class="btn btn-success">Edit</a>
+                         <h5 class="card-title"><?php echo $data_2['name']; ?></h5>
+                        
+                         <a href='editcourse.php?id=<?php echo $data_2['id'];?>' class="btn btn-success">Edit</a>
 
                          <!-- Button trigger modal -->
                          <button type="button" class=" btn btn-danger" data-bs-toggle="modal"
@@ -90,12 +210,12 @@ while ($data = mysqli_fetch_assoc($op_2)) {
                                          aria-label="Close"></button>
                                  </div>
                                  <div class="modal-body">
-                                     Do you want to delete <?php echo $data['name']; ?> course?
+                                     Do you want to delete <?php echo $data_2['name']; ?> course?
                                  </div>
                                  <div class="modal-footer">
                                      <button type="button" class="btn btn-secondary"
                                          data-bs-dismiss="modal">Close</button>
-                                     <a href='deletecourse.php?id=<?php echo $data['id']; ?>' type="button"
+                                     <a href='deletecourse.php?id=<?php echo $data_2['id']; ?>' type="button"
                                          class="btn btn-danger">Delete</a>
                                  </div>
                              </div>

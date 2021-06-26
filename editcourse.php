@@ -3,45 +3,76 @@
   include'db.php';
 include'functions.php';
  
+$errors  = array();
+$message = ""; 
+
+
+
+
 if($_SERVER['REQUEST_METHOD'] == "GET"){
 
+    if(isset($_GET['id'])){ 
     $id = filter_var($_GET['id'],FILTER_SANITIZE_NUMBER_INT);
     $message = '';
 
     if(filter_var($id,FILTER_VALIDATE_INT)){
         // CODE 
      
-        $sql_1 = "select * from courses where id=".$id;
-        $op  = mysqli_query($con,$sql_1);
+        $sql = "select * from courses where id=".$id;
+        $op  = mysqli_query($con,$sql);
 
-         if(mysqli_num_rows($op) == 0){
-             $message = "Id not found";
-         }else{
-            $data = mysqli_fetch_assoc($op);
-         }
+        $count = mysqli_num_rows($op);
 
-    
+        if($op){
+            $message = "Item deleted";
+        }else{
+            $message = "Error in Delete";  
+            $erros['id'] = 1 ;
+        }
+
+
+
+  if($count == 0){
+    $message = "Invalid Id";  
+    $errors['id'] = 1 ;  }
+
+
+
     }else{
-           $message = "Invalid id";
-    }
-  
+        $message = "InValid id value";
+        $erros['id'] = 1 ;    }
 
 
-    if(strlen($message) > 0){
+}else{
+  $message     = "Id Not Founded";  
+  $erros['id'] = 1 ; }
 
-        $_SESSION['message'] = $message;
-        header("Location: instructorprofile.php");
-    }
-  } 
 
+
+
+      if(count($errors) > 0 ){
+          $_SESSION['message'] = $message;
+        //   header("Location: display.php");
+      }else{
+          $data = mysqli_fetch_assoc($op);   }
 
  
 
-  $errors  = array();
-  $message = ""; 
+      }
+
+ 
+
+
+ 
+  
   if($_SERVER['REQUEST_METHOD'] == "POST"){
   
-   $name = Clean($_POST['name']);
+    $name     = Clean($_POST['name']);
+   $category = Clean($_POST['category']);
+//    $target = Clean($_POST['target']);
+   $id       = filter_var($_POST['id'],FILTER_SANITIZE_NUMBER_INT);
+;
+   
 
    if(empty($name)){
        $errors['name'] = "Empty Field";
@@ -59,60 +90,81 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
 
    }
 
-   $category = Clean($_POST['category']);
+ 
 
-   if(empty($category)){
-       $errors['category'] = "Empty Field";
-   }elseif(strlen($category) <= 3){
-       $errors['category'] = "Length must be > 3";
+//    if(empty($category)){
+//        $errors['category'] = "Empty Field";
+//    }elseif(strlen($category) <= 3){
+//        $errors['category'] = "Length must be > 3";
 
-   }else{
+//    }else{
 
-       $pattern = "/^[a-zA-Z\s*]+$/";
+//        $errors = "/^[a-zA-Z\s*]+$/";
 
-       if(!preg_match($pattern,$category)){
-           $errors['category'] = "Invalid Char";
+//        if(!preg_match($pattern,$category)){
+//            $errors['category'] = "Invalid Char";
 
-       }
+//        }
 
+//    }
+
+//    $target = Clean($_POST['target']);
+
+//    if(empty($target)){
+//        $errors['target'] = "Empty Field";
+//    }elseif(strlen($target) <= 3){
+//        $errors['target'] = "Length must be > 3";
+
+//    }else{
+
+//        $pattern = "/^[a-zA-Z\s*]+$/";
+
+//        if(!preg_match($pattern,$target)){
+//            $errorMessages['target'] = "Invalid Char";
+
+//        }
+
+//    } 
+
+   if(empty($id))
+   {
+       $errors['id'] = "Empty Field";
+   
+   }elseif(!filter_var($id,FILTER_VALIDATE_INT))
+   {
+       $errors['id'] = "Invalid Id";
    }
 
-   $target = Clean($_POST['target']);
+   
+    
+    
+   
+   if(count($errors) == 0){
 
-   if(empty($target)){
-       $errors['target'] = "Empty Field";
-   }elseif(strlen($target) <= 3){
-       $errors['target'] = "Length must be > 3";
-
-   }else{
-
-       $pattern = "/^[a-zA-Z\s*]+$/";
-
-       if(!preg_match($pattern,$target)){
-           $errors['target'] = "Invalid Char";
-
-       }
-
-   } 
-
-   $session = $_SESSION['id'];
-    if(count($errors) == 0){
-
-     $sql = "insert into courses  (name , category , target , instructor_id )  values ( '$name', '$category', '$target' , $session )" ;
+    $sql = "update courses set name = '$name' , category='$category' where id=".$id; 
 
      $op = mysqli_query($con,$sql);
 
-          
-
-     if($op){
      
-      echo $message = "Inserted";
+     if($op){
+          $message = "Updated";
+          header("Location: editcourse.php?id=".$id);
+        echo $message;
      }else{
-      echo  $message = "Try Again";
+          $message = "Try Again";
+       echo $message;
      }
-
-    }
+     $_SESSION["message"] = $message;
    
+    //  header("Location: display.php");
+   
+    }else{
+
+       $_SESSION["error_message"] = $errors;
+         
+       header("Location: editcourse.php?id=".$id);
+ 
+    }
 
 
   }
@@ -120,7 +172,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
 
    
 
-
+ 
 
 
 
@@ -141,7 +193,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
             <div class="col-6">
                 <h3>Course Information:</h3>
                 <div class="mb-3">
-                    <input name="name" value="<?php echo $data['name'];?>" placeholder="Course Name" type="text" class="form-control" />
+                    <input name="name" value="<?php  echo $data['name'];?>" placeholder="Course Name" type="text" class="form-control" />
                 </div>
 
                 <div class="mb-3">
@@ -160,12 +212,14 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
                         cols="30" rows="5"> <?php echo $data['target'];?></textarea>
                 </div>
 
+                <input  type="hidden" name="id" value="<?php echo $data['id'];?>">
+
                 <div class="mb-3">
-                    <input name=" "  value="<?php echo $data['price'];?>$" placeholder="Price" class="form-control" />
+                    <input name=" "   placeholder="Price" class="form-control" />
                 </div>
 
                 <div class="mb-3">
-                    <input name=" "  value="<?php echo $data['coupon'];?>"  placeholder="Avaliable Coupon" class="form-control" />
+                    <input name=" "     placeholder="Avaliable Coupon" class="form-control" />
                 </div>
             </div>
             <div class="col-6">

@@ -38,6 +38,8 @@ $data= mysqli_fetch_assoc($op);
     // $role =$_POST[('role')]; 
     $oldImage  = $_POST['oldImage'];
 $image     = '';
+
+
     if(empty($name)){
    
       $errorMessages['name'] = "Name Field Required";

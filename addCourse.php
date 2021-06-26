@@ -10,6 +10,7 @@ include'functions.php';
   if($_SERVER['REQUEST_METHOD'] == "POST"){
   
    $name = Clean($_POST['name']);
+   $oldImage  = $_POST['oldImage'];
    $image     = '';
 
 
@@ -131,6 +132,7 @@ include'functions.php';
 
                     </div>
                 </div>
+                <input type="hidden" value="<?php echo $data['cover'];?>" name="oldImage">
 
                 <div class="mb-3">
                     <textarea name="target" placeholder="ًWhat will students learn in your course?" class="form-control" name=""

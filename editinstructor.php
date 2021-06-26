@@ -71,13 +71,13 @@ while ($data = mysqli_fetch_assoc($op_2)) {
                          <a href="">By
                              <?PHP echo $_SESSION['Name'] ?>
                          </a>
-                         <a href="" class="btn btn-success">Edit</a>
-                     
-                     <!-- Button trigger modal -->
-                     <button type="button" class=" btn btn-danger" data-bs-toggle="modal"
-                         data-bs-target="#exampleModal">
-                         Delete
-                     </button>
+                         <a href='editcourse.php?id=<?php echo $data['id'];?>' class="btn btn-success">Edit</a>
+
+                         <!-- Button trigger modal -->
+                         <button type="button" class=" btn btn-danger" data-bs-toggle="modal"
+                             data-bs-target="#exampleModal">
+                             Delete
+                         </button>
                      </div>
                      <!-- Modal -->
                      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -95,7 +95,8 @@ while ($data = mysqli_fetch_assoc($op_2)) {
                                  <div class="modal-footer">
                                      <button type="button" class="btn btn-secondary"
                                          data-bs-dismiss="modal">Close</button>
-                                     <a href='deletecourse.php?id=<?php echo $data['id']; ?>' type="button" class="btn btn-danger">Delete</a>
+                                     <a href='deletecourse.php?id=<?php echo $data['id']; ?>' type="button"
+                                         class="btn btn-danger">Delete</a>
                                  </div>
                              </div>
                          </div>

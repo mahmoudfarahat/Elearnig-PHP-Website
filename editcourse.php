@@ -13,8 +13,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
 
     if(isset($_GET['id'])){ 
     $id = filter_var($_GET['id'],FILTER_SANITIZE_NUMBER_INT);
-    $message = '';
-
+   
     if(filter_var($id,FILTER_VALIDATE_INT)){
         // CODE 
      
@@ -72,7 +71,9 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
 //    $target = Clean($_POST['target']);
    $id       = filter_var($_POST['id'],FILTER_SANITIZE_NUMBER_INT);
 ;
-   
+$oldImage  = $_POST['oldImage'];
+$image     = '';
+
 
    if(empty($name)){
        $errors['name'] = "Empty Field";
@@ -137,11 +138,15 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
 
    
     
+   include'uploadimg.php';
+
+
+
     
    
    if(count($errors) == 0){
 
-    $sql = "update courses set name = '$name' , category='$category' where id=".$id; 
+    $sql = "update courses set name = '$name' , category='$category' , cover='$image' where id=".$id; 
 
      $op = mysqli_query($con,$sql);
 
@@ -188,7 +193,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
 <?php require('nav.php') ?>
 <div class="container">
 
-    <form class=" my-5 p-3 border" action="<?php htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
+    <form class=" my-5 p-3 border" action="<?php htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post" enctype="multipart/form-data" >
         <div class="row">
             <div class="col-6">
                 <h3>Course Information:</h3>
@@ -200,10 +205,16 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
                     <input name="category" value="<?php echo $data['category'];?>"  placeholder="category" class="form-control" />
                 </div>
                 <div class="mb-3 row">
-                    <label class="col-3    align-self-center ">Course Cover</label>
-                    <div class="col-9">
-                        <input  name="Cover"   placeholder="" type="file" class="  form-control " />
+                <div class="col-3">
+                <label class="   align-self-center ">Course Cover</label>
+                    <img src="uploads/<?php echo $data['cover'];?>" width="40px" class="card-img-top" >
+                </div>
+                <input type="hidden" value="<?php echo $data['cover'];?>" name="oldImage">
 
+                    <div class="col-9">
+                        <input  name="image"   placeholder="" type="file" class="  form-control " />
+
+                       
                     </div>
                 </div>
 

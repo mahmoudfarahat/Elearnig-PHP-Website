@@ -36,6 +36,8 @@ $data= mysqli_fetch_assoc($op);
     // $email    = Clean($_POST['email']);
     // $password = Clean($_POST['password']);
     // $role =$_POST[('role')]; 
+    $oldImage  = $_POST['oldImage'];
+$image     = '';
     if(empty($name)){
    
       $errorMessages['name'] = "Name Field Required";
@@ -70,12 +72,14 @@ $data= mysqli_fetch_assoc($op);
   
     // }
      
+    include'uploadimg.php';
+
       if(count($errorMessages) == 0){
 
         // $password = sha1($password);
  
         //   $sql_4 = "insert into instructors ( `name`, `email`, `password`) values ('$name','$email','$password')";
-          $sql_4= "update instructors set name = '$name' where id=".$_SESSION['id']; 
+          $sql_4= "update instructors set name = '$name' , picture='$image' where id=".$_SESSION['id']; 
   
         $op_4 = mysqli_query($con,$sql_4);
   
@@ -146,7 +150,7 @@ include 'header.php'; ?>
      <div class="row profile ">
          <div class="col-5">
              <h2>Edit Profile</h2>
-             <form class=" p-2 border"    action="<?php htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post"           >
+             <form class=" p-2 border"    action="<?php htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post"    enctype="multipart/form-data"        >
                  <div class="mb-3">
                      <input placeholder="Name"  value="<?php  echo $data['Name'];?>"  name="name" class="form-control">
                  </div>
@@ -161,6 +165,10 @@ include 'header.php'; ?>
                      <input placeholder="Website" type="text" value="<?php  echo $data['Website'];?>" class="form-control" name="email" id="exampleInputEmail1"
                          aria-describedby="emailHelp">
                  </div>
+
+                
+                 <input type="hidden" value="<?php echo $data['picture'];?>" name="oldImage">
+
                  <div class="mb-3">
                      <input placeholder="Twitter" type="text" value="<?php  echo $data['Twitter'];?>"  class="form-control" name="email" id="exampleInputEmail1"
                          aria-describedby="emailHelp">
@@ -170,8 +178,10 @@ include 'header.php'; ?>
                          aria-describedby="emailHelp">
                  </div>
                  <div class="mb-3">
-                     <input type="file" class="form-control">
+                     <input type="file" name='image' class="form-control">
                  </div>
+                
+                 <img src="uploads/<?php echo $data['picture'];?>" width="40px" class="card-img-top" >
                  <button type="submit" class="btn btn-primary">Submit</button>
              </form>
          </div>
@@ -187,7 +197,7 @@ while ($data_2 = mysqli_fetch_assoc($op_2)) {
 
     ?>
                  <div class="card  my-2" style="width: 15rem;">
-                     <img src="images/course-logo-1.png" class="card-img-top" alt="...">
+                 <img src="uploads/<?php echo $data_2['cover'];?>"  width="40px" height="250px"  class="card-img-top" >
                      <div class="card-body">
                          <h5 class="card-title"><?php echo $data_2['name']; ?></h5>
                         

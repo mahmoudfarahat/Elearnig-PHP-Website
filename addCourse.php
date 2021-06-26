@@ -10,6 +10,8 @@ include'functions.php';
   if($_SERVER['REQUEST_METHOD'] == "POST"){
   
    $name = Clean($_POST['name']);
+   $image     = '';
+
 
    if(empty($name)){
        $errors['name'] = "Empty Field";
@@ -62,13 +64,20 @@ include'functions.php';
        }
 
    } 
-   $session = $_SESSION['id'];
+  
+
+   include'uploadimg.php';
+  
+
+
+
+    $session = $_SESSION['id'];
     if(count($errors) == 0){
 
-     $sql = "insert into courses  (name , category , target , instructor_id )  values ( '$name', '$category', '$target' , $session )" ;
+     $sql = "insert into courses  (name , category , target , instructor_id  , cover)  values ( '$name', '$category', '$target' , $session , '$image' )" ;
 
      $op = mysqli_query($con,$sql);
-
+      
      if($op){
         echo $message = "Inserted";
      }else{
@@ -104,7 +113,7 @@ include'functions.php';
 <?php require('nav.php') ?>
 <div class="container">
 
-    <form class=" my-5 p-3 border" action="<?php htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
+    <form class=" my-5 p-3 border" action="<?php htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post" enctype="multipart/form-data">
         <div class="row">
             <div class="col-6">
                 <h3>Course Information:</h3>
@@ -118,7 +127,7 @@ include'functions.php';
                 <div class="mb-3 row">
                     <label class="col-3    align-self-center ">Course Cover</label>
                     <div class="col-9">
-                        <input  name="Cover"  placeholder="" type="file" class="  form-control " />
+                        <input  name="image"  placeholder="" type="file" class="  form-control " />
 
                     </div>
                 </div>

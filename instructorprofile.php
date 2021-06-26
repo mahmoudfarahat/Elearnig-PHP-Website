@@ -74,7 +74,8 @@ foreach($data_2 as  $x_value) {
                                            
                                         ?>
                 <div class="card  my-2" style="width: 18rem;">
-                    <img src="images/course-logo-1.png" class="card-img-top" alt="...">
+                <img src="uploads/<?php echo $data['cover'];?>" width="40px" height="250px"  class="card-img-top" >
+                   
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $data['name']; ?></h5>
                         <a href="">By
@@ -91,7 +92,8 @@ foreach($data_2 as  $x_value) {
             </div>
         </div>
         <div class="col-4"> 
-            <img class="profile-img mb-3" style="width:300px" src="images/profile pic 1.jpg" alt="">
+        <img src="uploads/<?php echo $data_3['picture'];?>" width="40px" class="card-img-top profile-img" >
+           
             <a class="btn btn-outline-primary d-block mb-2">Website</a>
             <a class="btn btn-outline-primary d-block mb-2">Twitter</a>
             <a class="btn btn-outline-primary d-block mb-2">Linkedin</a>

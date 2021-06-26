@@ -143,7 +143,7 @@ foreach($data_2 as  $x_value) {
 
   <a href="showcourse.php" class="mb-3">
     <div class="card mx-2" style="width: 15rem;">
-      <img src="images/course-logo-1.png" class="card-img-top" alt="...">
+    <img src="uploads/<?php echo $data['cover'];?>" width="40px" height="250px"  class="card-img-top" >
       <div class="card-body">
       <h5 class="card-title"><?php echo $data['name']; ?></h5>
         <a href="">by <?php echo $data['inst_name']; ?></a>

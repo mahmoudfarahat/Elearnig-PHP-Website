@@ -33,8 +33,13 @@ $data= mysqli_fetch_assoc($op);
 
 
     $name     = Clean($_POST['name']);
-    // $email    = Clean($_POST['email']);
-    // $password = Clean($_POST['password']);
+    $profession    = Clean($_POST['Profession']);
+
+    $Website = Clean($_POST['Website']);
+    $Twitter = Clean($_POST['Twitter']);
+    $Linkedin = Clean($_POST['Linkedin']);
+
+
     // $role =$_POST[('role')]; 
     $oldImage  = $_POST['oldImage'];
 $image     = '';
@@ -63,25 +68,60 @@ $image     = '';
     //  }
  
 
-
-    //   if(empty($password)){
-    //     $errorMessages['password'] = "Password Field Required";
-    // }else{
-  
-    //     if(strlen($password) < 6){
-    //      $errorMessages['password'] = "Password Must Be >= 6 "; 
-    //     }
-  
-    // }
+ 
      
-    include'uploadimg.php';
+    if(!empty($_FILES['image']['name'])){
+
+        $fileTempPath  = $_FILES['image']['tmp_name'];
+        $fileName      = $_FILES['image']['name'];
+        // $fileSize      = $_FILES['uploadedFiles']['size'];
+        // $filetype      = $_FILES['uploadedFiles']['type'];
+
+
+
+        $fileExtension =   explode(".",$fileName);
+        
+        $newName = rand().time().'.'.strtolower($fileExtension[1]);
+
+         $allowedExtensions = array('png','jpg');
+
+         if(in_array($fileExtension[1],$allowedExtensions)){
+
+          // code ....
+          
+          $uploaded_folder = "./uploads/";
+
+          $desPath = $uploaded_folder.$newName;
+
+         if(!move_uploaded_file($fileTempPath,$desPath)){
+            $errorMessages['image'] = "Error in Uplading file";  
+         }else{
+             $image =  $newName;
+
+             // delete old image .... 
+             if(file_exists('./uploads/'.$oldImage)){
+                 unlink('./uploads/'.$oldImage);
+             }
+
+
+
+         }
+
+
+         }else{
+
+            $errorMessages['image'] =  'Not Allowed Extension';
+         }
+        }else{
+$image  = $oldImage;
+           
+        }
+
 
       if(count($errorMessages) == 0){
 
-        // $password = sha1($password);
- 
-        //   $sql_4 = "insert into instructors ( `name`, `email`, `password`) values ('$name','$email','$password')";
-          $sql_4= "update instructors set name = '$name' , picture='$image' where id=".$_SESSION['id']; 
+          
+          $sql_4= "update instructors set name = '$name' , Profession = '$profession' , Website='$Website' , Twitter='$Twitter'  , Linkedin='$Linkedin'  , picture='$image' where id=".$_SESSION['id']; 
   
         $op_4 = mysqli_query($con,$sql_4);
   
@@ -157,14 +197,14 @@ include 'header.php'; ?>
                      <input placeholder="Name"  value="<?php  echo $data['Name'];?>"  name="name" class="form-control">
                  </div>
                  <div class="mb-3 ">
-                     <input placeholder="Profession" value="<?php  echo $data['Profession'];?>"   type="text" class="form-control" name="email"
+                     <input placeholder="Profession" value="<?php  echo $data['Profession'];?>"   type="text" class="form-control" name="Profession"
                          id="exampleInputEmail1" aria-describedby="emailHelp">
                  </div>
                  <div class="mb-3">
                      <textarea placeholder="About me" name="" id="" cols="30" class="form-control" rows="5"><?php  echo $data['About_me'];?></textarea>
                  </div>
                  <div class="mb-3">
-                     <input placeholder="Website" type="text" value="<?php  echo $data['Website'];?>" class="form-control" name="email" id="exampleInputEmail1"
+                     <input placeholder="Website" type="text" value="<?php  echo $data['Website'];?>" class="form-control" name="Website" id="exampleInputEmail1"
                          aria-describedby="emailHelp">
                  </div>
 
@@ -172,11 +212,11 @@ include 'header.php'; ?>
                  <input type="hidden" value="<?php echo $data['picture'];?>" name="oldImage">
 
                  <div class="mb-3">
-                     <input placeholder="Twitter" type="text" value="<?php  echo $data['Twitter'];?>"  class="form-control" name="email" id="exampleInputEmail1"
+                     <input placeholder="Twitter" type="text" value="<?php  echo $data['Twitter'];?>"  class="form-control" name="Twitter" id="exampleInputEmail1"
                          aria-describedby="emailHelp">
                  </div>
                  <div class="mb-3 ">
-                     <input placeholder="Linkedin" type="text" value="<?php  echo $data['Linkedin'];?>" class="form-control" name="email" id="exampleInputEmail1"
+                     <input placeholder="Linkedin" type="text" value="<?php  echo $data['Linkedin'];?>" class="form-control" name="Linkedin" id="exampleInputEmail1"
                          aria-describedby="emailHelp">
                  </div>
                  <div class="mb-3">

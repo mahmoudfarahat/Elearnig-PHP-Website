@@ -15,6 +15,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         // CODE 
      
         $sql = "select * from courses where id=".$id;
+
         $op  = mysqli_query($con,$sql);
 
         $count = mysqli_num_rows($op);
@@ -48,18 +49,19 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
 
 }
 
-$sql = "select courses.* where";
+$sql = "select * from courses";
 $op  = mysqli_query($con,$sql);
 
-
+ 
  
 $message = ""; 
   
   if($_SERVER['REQUEST_METHOD'] == "POST"){
   
     $name     = Clean($_POST['name']);
-//    $category = Clean($_POST['category']);
-//    $target = Clean($_POST['target']);
+   $category = Clean($_POST['category']);
+   $target = Clean($_POST['target']);
+   $price = clean($_POST['price']);
    $id       = filter_var($_POST['id'],FILTER_SANITIZE_NUMBER_INT);
 $oldImage  = $_POST['oldImage'];
 $image     = '';
@@ -83,39 +85,39 @@ $image     = '';
 
  
 
-//    if(empty($category)){
-//        $errors['category'] = "Empty Field";
-//    }elseif(strlen($category) <= 3){
-//        $errors['category'] = "Length must be > 3";
+   if(empty($category)){
+       $errors['category'] = "Empty Field";
+   }elseif(strlen($category) <= 3){
+       $errors['category'] = "Length must be > 3";
 
-//    }else{
+   }else{
 
-//        $errors = "/^[a-zA-Z\s*]+$/";
+       $errors = "/^[a-zA-Z\s*]+$/";
 
-//        if(!preg_match($pattern,$category)){
-//            $errors['category'] = "Invalid Char";
+       if(!preg_match($pattern,$category)){
+           $errors['category'] = "Invalid Char";
 
-//        }
+       }
 
-//    }
+   }
 
   
 
-//    if(empty($target)){
-//        $errors['target'] = "Empty Field";
-//    }elseif(strlen($target) <= 3){
-//        $errors['target'] = "Length must be > 3";
+   if(empty($target)){
+       $errors['target'] = "Empty Field";
+   }elseif(strlen($target) <= 3){
+       $errors['target'] = "Length must be > 3";
 
-//    }else{
+   }else{
 
-//        $pattern = "/^[a-zA-Z\s*]+$/";
+       $pattern = "/^[a-zA-Z\s*]+$/";
 
-//        if(!preg_match($pattern,$target)){
-//            $errorMessages['target'] = "Invalid Char";
+       if(!preg_match($pattern,$target)){
+           $errorMessages['target'] = "Invalid Char";
 
-//        }
+       }
 
-//    } 
+   } 
 
    if(empty($id))
    {
@@ -125,10 +127,62 @@ $image     = '';
    {
        $errorMessages['id'] = "Invalid Id";
    }
-
+   if(empty($price))
+   {
+       $errorMessages['id'] = "Empty Field";
    
+   }
+   
+
+
  
-        include'uploadimg.php';
+   if(!empty($_FILES['image']['name'])){
+
+    $fileTempPath  = $_FILES['image']['tmp_name'];
+    $fileName      = $_FILES['image']['name'];
+    // $fileSize      = $_FILES['uploadedFiles']['size'];
+    // $filetype      = $_FILES['uploadedFiles']['type'];
+
+
+
+    $fileExtension =   explode(".",$fileName);
+    
+    $newName = rand().time().'.'.strtolower($fileExtension[1]);
+
+     $allowedExtensions = array('png','jpg');
+
+     if(in_array($fileExtension[1],$allowedExtensions)){
+
+      // code ....
+      
+      $uploaded_folder = "./uploads/";
+
+      $desPath = $uploaded_folder.$newName;
+
+     if(!move_uploaded_file($fileTempPath,$desPath)){
+        $errorMessages['image'] = "Error in Uplading file";  
+     }else{
+         $image =  $newName;
+
+         // delete old image .... 
+         if(file_exists('./uploads/'.$oldImage)){
+             unlink('./uploads/'.$oldImage);
+         }
+
+
+
+     }
+
+
+     }else{
+
+        $errorMessages['image'] =  'Not Allowed Extension';
+     }
+    }else{
+$image  = $oldImage;
+       
+    }
+  
      
 
 
@@ -136,12 +190,11 @@ $image     = '';
    
    if(count($errorMessages) == 0){
 
-    $sql_2 = "update courses set name = '$name' , category='$category' , cover='$image' where id=".$id; 
+    $sql = "update courses set name = '$name' , category='$category' , target='$target'  cover='$image' , price= $price where id=".$id; 
 
-     $op_2 = mysqli_query($con,$sql_2);
-    ;
-        
-     if($op_2){
+     $op = mysqli_query($con,$sql);
+    
+     if($op){
           $message = "Updated";
           echo $message;
        
@@ -151,8 +204,8 @@ $image     = '';
      }
      $_SESSION["message"] = $message;
 
-     header("Location: editcourse.php?id=".$id);
-     echo $message;
+    //  header("Location: editcourse.php?id=".$id);
+    //  echo $message;
     //  header("Location: display.php");
    
     }else{
@@ -183,7 +236,7 @@ $image     = '';
 
 <?php include('header.php'); ?>
 
-<?php include('nav.php') ?>
+<?php include('nav.php')  ?>
 
 <div class="container">
 
@@ -221,7 +274,7 @@ $image     = '';
                 <input  type="hidden" name="id" value="<?php echo $data['id'];?>">
 
                 <div class="mb-3">
-                    <input name=" "   placeholder="Price" class="form-control" />
+                    <input name="price" value="<?php  echo $data['price'];?>"   placeholder="Price" class="form-control" />
                 </div>
 
                 <div class="mb-3">

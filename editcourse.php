@@ -15,7 +15,6 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         // CODE 
      
         $sql = "select * from courses where id=".$id;
-
         $op  = mysqli_query($con,$sql);
 
         $count = mysqli_num_rows($op);
@@ -48,8 +47,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
     }
 
 }
-
-$sql = "select * from courses";
+$sql = "select * from courses ";
 $op  = mysqli_query($con,$sql);
 
  
@@ -119,20 +117,7 @@ $image     = '';
 
    } 
 
-   if(empty($id))
-   {
-       $errorMessages['id'] = "Empty Field";
-   
-   }elseif(!filter_var($id,FILTER_VALIDATE_INT))
-   {
-       $errorMessages['id'] = "Invalid Id";
-   }
-   if(empty($price))
-   {
-       $errorMessages['id'] = "Empty Field";
-   
-   }
-   
+ 
 
 
  
@@ -190,10 +175,10 @@ $image  = $oldImage;
    
    if(count($errorMessages) == 0){
 
-    $sql = "update courses set name = '$name' , category='$category' , target='$target'  cover='$image' , price= $price where id=".$id; 
+    $sql = "update courses set name = '$name' , category='$category' , target='$target' , cover='$image' , price= $price where id=".$id; 
 
      $op = mysqli_query($con,$sql);
-    
+  
      if($op){
           $message = "Updated";
           echo $message;
@@ -201,10 +186,12 @@ $image  = $oldImage;
      }else{
           $message = "Try Again";
        echo $message;
+       
+        
      }
      $_SESSION["message"] = $message;
 
-    //  header("Location: editcourse.php?id=".$id);
+     header("Location: editcourse.php?id=".$id);
     //  echo $message;
     //  header("Location: display.php");
    
@@ -236,7 +223,9 @@ $image  = $oldImage;
 
 <?php include('header.php'); ?>
 
-<?php include('nav.php')  ?>
+<?php include('nav.php') ?>
+
+
 
 <div class="container">
 

@@ -127,13 +127,15 @@ $image  = $oldImage;
   
         if($op_4){
              echo $message = "Updated";
+          header("Location: editinstructor.php");
             
         }else{
             $message = "Try Again";
         }
    
           $_SESSION['message'] = $message;
-          header("Location: editinstructor.php");
+          
+        //   $_SESSION['Name'] =  $data['Name'] ;
        }else{
           $_SESSION['error_messsage'] = $errorMessages;
           // header("Location: add.php");

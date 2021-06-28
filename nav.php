@@ -61,8 +61,12 @@ $display_profile_icon = '';
 $display_login_up_icon = '';
 $display_cart_icon = '';
 
+// href="instructorprofile.php?id=php echo $data['inst_id']; 
+
 if (isset($_SESSION['role']) && $_SESSION['role'] == 1) {
-    $link = 'instructorprofile.php';
+
+      
+    $link = 'instructorprofile.php?id='.$_SESSION['id'];
 
     $display_login_up_icon = 'd-none';
     $display_cart_icon = 'd-none';

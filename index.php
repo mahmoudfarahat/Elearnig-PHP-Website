@@ -7,7 +7,7 @@
 
 // $sql = 'SELECT * FROM `courses`';
 
-$sql = 'SELECT courses.* , instructors.name as inst_name FROM courses join instructors on  instructors.id =  courses.instructor_id';
+$sql = 'SELECT courses.* , instructors.name as inst_name , instructors.id as inst_id FROM courses join instructors on  instructors.id =  courses.instructor_id';
  
 $sql_2 ='SELECT COUNT(name) FROM courses';
 
@@ -141,12 +141,12 @@ foreach($data_2 as  $x_value) {
 <?php  while($data = mysqli_fetch_assoc($op)){   ?>
 
 
-  <a href="showcourse.php" class="mb-3">
+  <a href="showcourse.php?id=<?php echo $data['id']; ?>"  class="mb-3">
     <div class="card mx-2" style="width: 15rem;">
     <img src="uploads/<?php echo $data['cover'];?>" width="40px" height="250px"  class="card-img-top" >
       <div class="card-body">
       <h5 class="card-title"><?php echo $data['name']; ?></h5>
-        <a href="">by <?php echo $data['inst_name']; ?></a>
+        <a href="instructorprofile.php?id=<?php echo $data['inst_id']; ?>">by <?php echo $data['inst_name']; ?></a>
 
         <p class="card-text"><?php echo $data['price']; ?>$</p>
 

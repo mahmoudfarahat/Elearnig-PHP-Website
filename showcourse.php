@@ -1,3 +1,59 @@
+<?php 
+
+ include'db.php';
+ $errorMessages  = array();
+ if($_SERVER['REQUEST_METHOD'] == "GET"){
+
+  if(isset($_GET['id'])){ 
+  $id = filter_var($_GET['id'],FILTER_SANITIZE_NUMBER_INT);
+ 
+  if(filter_var($id,FILTER_VALIDATE_INT)){
+      // CODE 
+   
+
+
+      $sql = "select * from courses where id=".$id;
+    
+
+      $op  = mysqli_query($con,$sql);
+
+      
+
+      $count = mysqli_num_rows($op);
+
+
+      if($count == 0){
+          $message = "Invalid Id";  
+          $errorMessages['id'] = 1 ;
+  
+        }
+  
+
+      }else{
+          $message = "InValid id value";
+          $errorMessages['id'] = 1 ;
+      }
+
+  }else{
+      $message     = "Id Not Founded";  
+      $errorMessages['id'] = 1 ;
+    }
+
+
+    if(count($errorMessages) > 0 ){
+      $_SESSION['message'] = $message;
+      // header("Location: display.php");
+      echo 'dsdsds';
+  }else{
+      $data = mysqli_fetch_assoc($op);
+  }
+  $sql_2 = "select * from instructors where id=".$data['instructor_id'];
+
+  $op_2  = mysqli_query($con,$sql_2);
+
+  $data_2 = mysqli_fetch_assoc($op_2);
+
+}
 
 
 
@@ -9,13 +65,7 @@
 
 
 
-
-
-
-
-
-
-
+?>
 
 
 
@@ -35,12 +85,12 @@
           </nav>
         <!-- End Breadcrumb -->
                 <h2>
-                    The Complete JavaScript Course 2021: From Zero to Expert!
+                   <?php  echo $data['name'] ?>
                 </h2>
-                <p>
+                <!-- <p>
                     The modern JavaScript course for everyone! Master JavaScript with projects, challenges and theory. Many courses in one!
-                </p>
-                <div>Created by <a href="instructorprofile.html">Instructor Name</a></div>
+                </p> -->
+                <div>Created by <a href="instructorprofile.php?id=<?php echo $data_2['id']; ?>"> <?php  echo $data_2['Name'] ?> </a></div>
                 <div class="my-3">
                     <span>Last updated</span> <span>English</span>
                 </div>
@@ -53,8 +103,7 @@
                 <div class="border"> 
                     <div class="mx-2 my-2">What you'll learn</div>
                     <ul>
-                        <li class="my-3">Become an advanced, confident, and modern JavaScript developer from scratch</li>
-                        <li>Become an advanced, confident, and modern JavaScript developer from scratch</li>
+                        <li class="my-3"><?php  echo $data['target'] ?></li>
                     </ul>
                 </div>
                 <!--  -->
@@ -126,7 +175,7 @@
                 <div class="card " style="width: 18rem;">
                     <img src="images/course-logo-1.png" class="card-img-top" alt="...">
                     <div class="card-body">
-                      <h5 class="card-title">$122</h5>
+                      <h5 class="card-title"><?php  echo $data['price'] ?>$</h5>
                       <a href="cart.html" class="btn btn-danger cart-btn my-2">Add to cart</a>
                       <a href="payment.php" class="btn btn-outline-primary buy-btn my-1 ">Buy now</a>
                       <p class="text-center">30-day Money-Back Gurantee</p>

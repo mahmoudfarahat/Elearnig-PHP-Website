@@ -22,7 +22,7 @@ if(isset($_SESSION['id'])){
         <h2 class="cart-heading">Mahmoud Farahat</h2>
 </section>
   <div class="container ">
-    <div class=" d-flex justify-content-between   profile">
+    <div class=" d-flex justify-content-between profile">
       <div >
         <img   class="profile-img mb-3" style="width:150px"  src="images/profile pic 1.jpg" alt="">
       </div>

@@ -40,11 +40,9 @@ $errorMessages  = array();
       if(empty($password)){
         $errorMessages['password'] = "Password Field Required";
     }else{
-  
         if(strlen($password) < 6){
          $errorMessages['password'] = "Password Must Be >= 6 "; 
         }
-  
     }
      
       if(count($errorMessages) == 0){

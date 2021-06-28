@@ -70,9 +70,10 @@ include'functions.php';
    include'uploadimg.php';
   
 
-
+print_r($errors);
 
     $session = $_SESSION['id'];
+
     if(count($errors) == 0){
 
      $sql = "insert into courses  (name , category , target , instructor_id  , cover)  values ( '$name', '$category', '$target' , $session , '$image' )" ;

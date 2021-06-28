@@ -3,11 +3,7 @@
  include'db.php';
 
  //hide private sections / for all students only
-if(isset($_SESSION['id']) && $_SESSION['role']  == 2){
 
-  $review_display_add ='<textarea name="" class="form-control mb-3" placeholder="Add your review" name="" id="" cols="30" rows="5"></textarea>';
-  $review_display_btn = '<div class=" d-flex flex-row-reverse "><a class="btn btn-primary ">Sumbit your Review</a></div>';
-}
  
 
  $errorMessages  = array();
@@ -19,7 +15,7 @@ if(isset($_SESSION['id']) && $_SESSION['role']  == 2){
   if(filter_var($id,FILTER_VALIDATE_INT)){
       // CODE 
    
-
+$_SESSION['courses_id']= $id;
 
       $sql = "select * from courses where id=".$id;
 
@@ -72,9 +68,89 @@ if(isset($_SESSION['id']) && $_SESSION['role']  == 2){
 
   
 
-   
-  
+  if(isset($_SESSION['id']) && $_SESSION['role']  == 2){
+
+    $review_display_add ='<textarea name="review" class="form-control mb-3" placeholder="Add your review" name="" id="" cols="30" rows="5"></textarea>';
+    $review_display_btn = '<div class=" d-flex flex-row-reverse "><button   class="btn btn-primary ">Sumbit your Review</button></div>';
+  }
+
+
+//////////////////////////
+
+
+
+    
+
+
+
 }
+
+include'functions.php';
+
+$errorMessages  = array();
+   $message = "";  
+
+
+ 
+   if($_SERVER['REQUEST_METHOD'] == "POST"){
+
+    $review     = Clean($_POST['review']);  
+    $id       = filter_var($_POST['id'],FILTER_SANITIZE_NUMBER_INT);
+
+      echo  $_SESSION['id'].'_'; 
+      echo $id;
+  
+    if(empty($review)){
+   
+      $errorMessages['review'] = "review Field Required";
+         
+      }else{
+            if(strlen($review) < 3){
+              $errorMessages['review']  = "review must be >= 3";
+            }elseif (!preg_match("/^[a-zA-Z\s*']+$/",$review)) { 
+                $errorMessages['review']  = "Only chars allowed";
+            }    
+      }
+   
+   
+      if(count($errorMessages) == 0){
+
+        $student_id = $_SESSION['id'];
+        
+        $course_id = $data['id'];
+ 
+          $sql_4 = "insert into reviews ( `reviews`, `student_id`, `course_id`) values ('$review', $student_id ,$id)";
+        
+  
+        $op_4 = mysqli_query($con,$sql_4);
+        
+     
+        if($op_4){
+             echo $message = "Inserted";
+        }else{
+          echo  $message = "Try Again";
+        }
+   
+          $_SESSION['message'] = $message;
+       
+          header("Location: showcourse.php?id=.$id");
+  
+         }else{
+           $_SESSION['error_messsage'] = $errorMessages;
+           header("Location: showcourse.php?id=.$id");
+          
+            
+      // 
+       }
+      } 
+    
+   
+
+
+
+
+
+
 
 
 
@@ -193,8 +269,9 @@ if(isset($_SESSION['id']) && $_SESSION['role']  == 2){
             <h2 class="my-3">
                 Reviews
             </h2>
-            <form action="" method="post" class="mb-3  ">
+            <form action="<?php  echo htmlspecialchars($_SERVER['PHP_SELF']); ?>"  method="post" class="mb-3  ">
               <!-- <label class="form-control mb-3"  for=""> add your review</label> -->
+              <input  type="hidden" name="id" value="<?php echo $data['id'];?>">
               <?php if(isset(  $review_display_add)) echo  $review_display_add ?>
               <?php if(isset(  $review_display_btn)) echo  $review_display_btn ?>
 
@@ -206,7 +283,8 @@ if(isset($_SESSION['id']) && $_SESSION['role']  == 2){
                    
                         <div class="col-2">
                             <div class="mx-4"
-                                style="background-color: darkkhaki; height: 50px; width: 50px ; border-radius: 50%; ">
+                                style=" ; height: 50px; width: 50px ; border-radius: 50%; ">
+                                <img src="uploads/<?php echo $data_3['picture'];?>" class="card-img-top p-0 img-padding rounded-circle"   alt="...">
                             </div>
                         </div>
                         <div class="col-10 ">
@@ -226,7 +304,12 @@ if(isset($_SESSION['id']) && $_SESSION['role']  == 2){
                 <img src="uploads/<?php echo $data['cover'];?>" class="card-img-top p-0 img-padding" alt="...">
                 <div class="card-body">
                     <h5 class="card-title"><?php  echo $data['price'] ?>$</h5>
-                    <a href="cart.html" class="btn btn-danger cart-btn my-2">Add to cart</a>
+
+
+                    <form  action="cart_action.php"  method="post" >
+                          <button  class="btn btn-danger cart-btn my-2">Add to cart</button>
+                          <input  type="hidden" name="id" value="<?php echo $data['id'];?>">
+                    </form>
                     <a href="payment.php" class="btn btn-outline-primary buy-btn my-1 ">Buy now</a>
                     <p class="text-center">30-day Money-Back Gurantee</p>
                     <p>This course includes:</p>

@@ -141,9 +141,9 @@ foreach($data_2 as  $x_value) {
 <?php  while($data = mysqli_fetch_assoc($op)){   ?>
 
 
-  <a href="showcourse.php?id=<?php echo $data['id']; ?>"  class="mb-3">
-    <div class="card mx-2" style="width: 15rem;">
-    <img src="uploads/<?php echo $data['cover'];?>" width="40px" height="250px"  class="card-img-top" >
+  <a href="showcourse.php?id=<?php echo $data['id']; ?>"  class=" " >
+    <div class="card mx-2 mb-3   " style="width: 15rem;">
+    <img src="uploads/<?php echo $data['cover'];?>" width="40px" height="250px"   class="card-img-top p-0" >
       <div class="card-body">
       <h5 class="card-title"><?php echo $data['name']; ?></h5>
         <a href="instructorprofile.php?id=<?php echo $data['inst_id']; ?>">by <?php echo $data['inst_name']; ?></a>

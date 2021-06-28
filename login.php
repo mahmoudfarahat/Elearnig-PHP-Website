@@ -70,8 +70,6 @@ include'functions.php';
           
           $role = 1;
 
-         
-          
           $_SESSION['role'] =$role;
             header("Location: index.php")   ;
 
@@ -82,11 +80,11 @@ include'functions.php';
           $_SESSION['id']   =  $data['id'] ;
           $_SESSION['name'] =  $data['name'] ;
        
-            header("Location: index.php")   ;
+              ;
             $role = 2;
            
           $_SESSION['role'] =$role ;
-
+          header("Location: index.php");
         }   
         else{
           $errorMessages['email']  = "Invalid Email";

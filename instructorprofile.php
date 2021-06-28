@@ -1,18 +1,21 @@
 <?php   
 include'db.php';
- 
-if(isset($_SESSION['id']) && $_SESSION['role'] =='1' ){
+  //hide private sections / for one teacher only
+if(isset($_SESSION['id']) && $_SESSION['role'] == 1 ){
 
    
 
  if($_SERVER['REQUEST_METHOD'] == "GET"){
+   
     if(isset($_GET['id'])){ 
+        
         $id = filter_var($_GET['id'],FILTER_SANITIZE_NUMBER_INT);
         if($id == $_SESSION['id'] ){
-            $private_btn_display="";
-        }else {
-            $private_btn_display="d-none";
-        }
+           
+            $private_btn_edit = '<a href="editinstructor.php" class="btn btn-outline-danger">Edit Profile</a>';
+              $private_btn_add = '<a href="addCourse.php" class="btn btn-outline-success">Add a New Course</a>';
+            
+        } 
     }
 
  }
@@ -110,7 +113,12 @@ $op_3=mysqli_query($con,$sql_3);
 
 
                 <div>INSTRUCTOR</div>
-                <a href="editinstructor.php" class="btn btn-outline-danger <?php echo $private_btn_display ?>">Edit Profile</a>
+                <?php  
+                
+                
+                
+                ?>
+               <?php if(isset($private_btn_edit))  echo $private_btn_edit ?>
             
             </div>
             <?php $data_3= mysqli_fetch_assoc($op); ?>
@@ -136,8 +144,8 @@ foreach($data_2 as  $x_value) {
       
      
   ?>
-
-                <a href="addCourse.php" class="btn btn-outline-success <?php echo $private_btn_display ?> ">Add a New Course</a>
+<?php if(isset($private_btn_add))  echo  $private_btn_add ?>
+                
             </div>
 
 

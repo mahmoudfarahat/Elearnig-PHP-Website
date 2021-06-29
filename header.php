@@ -8,7 +8,7 @@
     <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 <!-- JavaScript Bundle with Popper -->
-
+<link rel="stylesheet" href="css/footer.css">
 <link rel="stylesheet" href="css/nav.css">
 <link rel="stylesheet" href="css/login.css">
 <link rel="stylesheet" href="css/signup.css">
@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="css/addcourse.css" />
 <link rel="stylesheet" href="css/signup.css">
 <link rel="stylesheet" href="css/studentprofile.css">
+
 
 <link rel="stylesheet" href="css/instructorprofile.css">
 <link rel="stylesheet" href="css/style.css">

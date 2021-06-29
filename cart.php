@@ -32,40 +32,43 @@ $op_2 = mysqli_query($con,$sql_2);
  </section>
  <div class="container">
      <div class="row card-cart my-5 ">
-        
+
          <div class="col-9">
 
-         <h6 class="d-flex flex-row-reverse px-5"><?php echo $data_2['COUNT(course_id)'] ?> Course in Cart</h6>
-         <?php  while($data = mysqli_fetch_assoc($op)){   ?>
-         
+             <h6 class="d-flex flex-row-reverse px-5"><?php echo $data_2['COUNT(course_id)'] ?> Course in Cart</h6>
+             <?php  while($data = mysqli_fetch_assoc($op)){   ?>
+
              <div class="card mb-3" style="max-width: 840px;">
                  <div class="row g-0">
                      <div class="col-md-4">
-                     <img src="uploads/<?php echo $data['cover'];?>" height="200px" class="card-img-top p-0 img-padding" alt="...">
+                         <img src="uploads/<?php echo $data['cover'];?>" height="200px"
+                             class="card-img-top p-0 img-padding" alt="...">
                      </div>
                      <div class="col-md-8">
-                       <div class="row">
-                         <div class="col-8">
-                         <div class="card-body">
-                             <h5 class="card-title"><?php echo $data['name'] ?> </h5>
-                             <p class="card-text">This is a wider card with supporting text below as a natural lead-in
-                                 to additional content. This content is a little bit longer.</p>
-                             <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                         <div class="row">
+                             <div class="col-8">
+                                 <div class="card-body">
+                                     <h5 class="card-title"><?php echo $data['name'] ?> </h5>
+                                     <p class="card-text">This is a wider card with supporting text below as a natural
+                                         lead-in
+                                         to additional content. This content is a little bit longer.</p>
+                                     <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                 </div>
+                             </div>
+                             <div class="col-4 align-self-center ">
+                                 <a href='deletecart.php?id=<?php echo $data['id']; ?>'
+                                     class="  text-center  d-block  ">Delete</a>
+                                 <hr class="m-0">
+                                 <a href="payment.php" class=" text-center   d-block">Buy</a>
+                             </div>
                          </div>
-                         </div>
-                         <div class="col-4 align-self-center ">
-                              <a href="" class="  text-center  d-block  ">Delete</a>
-                              <hr class="m-0">
-                              <a href="" class=" text-center   d-block" >Buy</a>
-                         </div>
-                       </div>
-                        
+
                      </div>
                  </div>
              </div>
              <?php  }   ?>
          </div>
-    
+
 
          <div class="col-3">
              <h6>total</h6>

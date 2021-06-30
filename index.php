@@ -22,6 +22,19 @@ $op = mysqli_query($con,$sql);
 ?>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     <div class="container my-5 ">
       <div class="row ">
         <div class="d-flex my-3 justify-content-between col-3">
@@ -142,13 +155,13 @@ foreach($data_2 as  $x_value) {
 
 
   <a href="showcourse.php?id=<?php echo $data['id']; ?>"  class=" " >
-    <div class="card mx-2 mb-3   " style="width: 15rem;">
-    <img src="uploads/<?php echo $data['cover'];?>" width="40px" height="250px"   class="card-img-top p-0" >
-      <div class="card-body">
-      <h5 class="card-title"><?php echo $data['name']; ?></h5>
-        <a href="instructorprofile.php?id=<?php echo $data['inst_id']; ?>">by <?php echo $data['inst_name']; ?></a>
+    <div class="card mx-2 mb-3  border-0  " style="width: 15rem; ">
+    <img src="uploads/<?php echo $data['cover'];?>" width="20px" height="200px"   class="card-img-top p-0" >
+      <div class="card-body px-2 py-2 ">
+      <h5 class="card-title my-0 py-0 text-dark"><?php echo $data['name']; ?></h5>
+        <a href="instructorprofile.php?id=<?php echo $data['inst_id']; ?>" class="mb-3 text-secondary">by <?php echo $data['inst_name']; ?></a>
 
-        <p class="card-text"><?php echo $data['price']; ?>$</p>
+        <p class="card-text">$<?php echo $data['price']; ?> </p>
 
        
       </div>

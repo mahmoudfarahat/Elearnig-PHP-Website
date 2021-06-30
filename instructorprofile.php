@@ -118,8 +118,8 @@ $op_3=mysqli_query($con,$sql_3);
                 
                 
                 ?>
-               <?php if(isset($private_btn_edit))  echo $private_btn_edit ?>
-            
+                <?php if(isset($private_btn_edit))  echo $private_btn_edit ?>
+
             </div>
             <?php $data_3= mysqli_fetch_assoc($op); ?>
             <h2> <?php echo  $data_3['Name']; ?></h2>
@@ -144,8 +144,8 @@ foreach($data_2 as  $x_value) {
       
      
   ?>
-<?php if(isset($private_btn_add))  echo  $private_btn_add ?>
-                
+                <?php if(isset($private_btn_add))  echo  $private_btn_add ?>
+
             </div>
 
 
@@ -154,16 +154,14 @@ foreach($data_2 as  $x_value) {
                                            while($data = mysqli_fetch_assoc($op_2) ){
                                            
                                         ?>
-                <div class="card  my-2" style="width: 18rem;">
-                <img src="uploads/<?php echo $data['cover'];?>" width="40px" height="250px"  class="card-img-top" >
-                   
-                    <div class="card-body">
-                        <h5 class="card-title"><?php echo $data['name']; ?></h5>
-                        <a href="">By
-                        <?php echo $data_3['Name'];?>
-                         
-                        </a>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                <div class="card  my-2 mb-3  mx-2   border-0" style="width: 15rem;">
+                    <img src="uploads/<?php echo $data['cover'];?>" width="20px" height="200px" class="card-img-top">
+
+                    <div class="card-body px-2 py-2 ">
+                        <h5 class="card-title  my-0 py-0 "><?php echo $data['name']; ?></h5>
+                        <!-- <a href="">By <?php echo $data_3['Name'];?></a>
+                         -->
+                         <p class="card-text">$<?php echo $data['price']; ?> </p>
                     </div>
                 </div>
 
@@ -173,9 +171,9 @@ foreach($data_2 as  $x_value) {
                 <?php  }    ?>
             </div>
         </div>
-        <div class="col-4"> 
-        <img src="uploads/<?php echo $data_3['picture'];?>" width="40px" class="card-img-top profile-img" >
-           
+        <div class="col-4">
+            <img src="uploads/<?php echo $data_3['picture'];?>" width="40px" class="card-img-top profile-img">
+
             <a class="btn btn-outline-primary d-block mb-2">Website</a>
             <a class="btn btn-outline-primary d-block mb-2">Twitter</a>
             <a class="btn btn-outline-primary d-block mb-2">Linkedin</a>

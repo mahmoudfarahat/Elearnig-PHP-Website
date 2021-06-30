@@ -269,22 +269,22 @@ $errorMessages  = array();
             <h2 class="my-3">
                 Reviews
             </h2>
-            <form action="<?php  echo htmlspecialchars($_SERVER['PHP_SELF']); ?>"  method="post" class="mb-3  ">
-              <!-- <label class="form-control mb-3"  for=""> add your review</label> -->
-              <input  type="hidden" name="id" value="<?php echo $data['id'];?>">
-              <?php if(isset(  $review_display_add)) echo  $review_display_add ?>
-              <?php if(isset(  $review_display_btn)) echo  $review_display_btn ?>
+            <form action="<?php  echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" class="mb-3  ">
+                <!-- <label class="form-control mb-3"  for=""> add your review</label> -->
+                <input type="hidden" name="id" value="<?php echo $data['id'];?>">
+                <?php if(isset(  $review_display_add)) echo  $review_display_add ?>
+                <?php if(isset(  $review_display_btn)) echo  $review_display_btn ?>
 
             </form>
             <div>
                 <?php  while($data_3 = mysqli_fetch_assoc($op_3)){   ?>
                 <div class="border mb-3">
                     <div class="row py-3">
-                   
+
                         <div class="col-2">
-                            <div class="mx-4"
-                                style=" ; height: 50px; width: 50px ; border-radius: 50%; ">
-                                <img src="uploads/<?php echo $data_3['picture'];?>" class="card-img-top p-0 img-padding rounded-circle"   alt="...">
+                            <div class="mx-4" style=" ; height: 50px; width: 50px ; border-radius: 50%; ">
+                                <img src="uploads/<?php echo $data_3['picture'];?>"
+                                    class="card-img-top p-0 img-padding rounded-circle" alt="...">
                             </div>
                         </div>
                         <div class="col-10 ">
@@ -304,13 +304,34 @@ $errorMessages  = array();
                 <img src="uploads/<?php echo $data['cover'];?>" class="card-img-top p-0 img-padding" alt="...">
                 <div class="card-body">
                     <h5 class="card-title"><?php  echo $data['price'] ?>$</h5>
+                    <?php  
+ 
+ if(isset($_SESSION['id']) &&  $_SESSION['role'] == 2 ){
+    
+     $buy_cart="payment.php";
+ 
+ }else if(isset($_SESSION['id']) &&  $_SESSION['role'] == 1){
+ 
+ $buy_cart_display = 'd-none';
+ 
+ }
+   else {
+       # code...
+       $buy_cart="login.php";
+      
+   }
+ 
+ ?>
 
-
-                    <form  action="cart_action.php"  method="post" >
-                          <button  class="btn btn-danger cart-btn my-2">Add to cart</button>
-                          <input  type="hidden" name="id" value="<?php echo $data['id'];?>">
+                    <form action="cart_action.php" method="post">
+                        <button class="btn btn-danger cart-btn my-2 <?php   echo $buy_cart_display  ?>  ">Add to
+                            cart</button>
+                        <input type="hidden" name="id" value="<?php echo $data['id'];?>">
                     </form>
-                    <a href="payment.php" class="btn btn-outline-primary buy-btn my-1 ">Buy now</a>
+
+                    <div class=" my-2 alert alert-success text-center">Sign in as a Student <br> to buy the course</div>
+                    <a href="<?php   echo $buy_cart  ?>"
+                        class="btn btn-outline-primary buy-btn my-1 <?php   echo $buy_cart_display  ?>   ">Buy now</a>
                     <p class="text-center">30-day Money-Back Gurantee</p>
                     <p>This course includes:</p>
                     <ul>

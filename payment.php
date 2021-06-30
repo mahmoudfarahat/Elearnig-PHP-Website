@@ -1,5 +1,36 @@
  
-  <?php include'header.php' ?>
+  <?php 
+  
+  
+  
+   
+ include'db.php';
+ if (isset($_SESSION['id']) && $_SESSION['role'] == 2   ){
+
+ }elseif(isset($_SESSION['id']) && $_SESSION['role'] == 1 ){
+ 
+   header("location:index.php");
+
+ }else{
+     header("location:login.php");
+ }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  include'header.php'
+   ?>
     <?php require('nav.php')  ?>
     <div class="container my-3">
       <div class="row payment-design">

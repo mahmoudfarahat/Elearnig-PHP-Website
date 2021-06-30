@@ -5,13 +5,7 @@ include'functions.php';
 $errorMessages  = array();
    $message = "";  
 
-if(isset($_SESSION['id']) &&  $_SESSION['role'] == 2 ){
-  
-}else {
-    # code...
 
-    header("location:login.php");
-}
  
    if($_SERVER['REQUEST_METHOD'] == "POST"){
 
@@ -52,18 +46,25 @@ if(isset($_SESSION['id']) &&  $_SESSION['role'] == 2 ){
         if($op){
              echo $message = "Inserted";
             
+            
         }else{
           echo  $message = "Try Again";
-         
+          header("location:login.php");
         }
    
         //   $_SESSION['message'] = $message;
-        header("Location: cart.php");
-         
+        // header("Location: cart.php");
+        if(isset($_SESSION['id']) &&  $_SESSION['role'] == 2 ){
+          header("Location: cart.php");
+        }else {
+            # code...
+        
+            header("location:login.php");
+        }
   
          }else{
         //    $_SESSION['error_messsage'] = $errorMessages;
-
+ 
            header("Location: showcourse.php?id=.$id");
           
             

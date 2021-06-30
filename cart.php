@@ -1,7 +1,15 @@
  <?php  
  
  include'db.php';
- 
+  if (isset($_SESSION['id']) && $_SESSION['role'] == 2   ){
+
+  }elseif(isset($_SESSION['id']) && $_SESSION['role'] == 1 ){
+  
+    header("location:index.php");
+
+  }else{
+      header("location:login.php");
+  }
  
  
 //  $sql = 'SELECT courses.* , instructors.name as inst_name , instructors.id as inst_id FROM courses join instructors on  instructors.id =  courses.instructor_id';

@@ -15,7 +15,109 @@
      header("location:login.php");
  }
   
+ 
+ 
+ include'functions.php';  
+   
+   
+   
+   if($_SERVER['REQUEST_METHOD'] == "POST"){
+     // CODE ... 
+ 
+ 
+     $email    = Clean($_POST['email']);
+   
+     $errorMessages = [];
+ 
+ 
+ 
+       // Validate email 
+       if(empty($email)){
+         $errorMessages['email'] = "Email Field Required";
+      }else{
+       
+       
+       if(!(filter_var($email,FILTER_VALIDATE_EMAIL))){    
+           $errorMessages['email']  = "Invalid Email";
+       }
+   
+      }
+   
+   
+   
+    
+ 
   
+       if(count($errorMessages) == 0){
+ 
+       
+        
+          
+         $sql = "select * from  courses where email='$email' and password = '$password' " ;
+ 
+      
+       
+        
+           $op = mysqli_query($con,$sql);
+          
+          
+       
+       
+         $count = mysqli_num_rows($op);
+      
+ 
+         
+         if($count == 1){
+             // login code .... 
+             
+           $data = mysqli_fetch_assoc($op);
+           
+           $_SESSION['id']   =  $data['id'] ;
+           $_SESSION['Name'] =  $data['Name'] ;
+           
+           $role = 1;
+ 
+           $_SESSION['role'] =$role;
+             header("Location: index.php")   ;
+ 
+         } 
+           
+         else{
+           $errorMessages['email']  = "Invalid Email";
+           $errorMessages['password']  = "Invalid Password";
+ 
+             // echo 'Error in Email || Password try again ';
+         }
+ 
+       }else{
+ 
+ 
+         // foreach($errorMessages as $key => $messages){
+ 
+         //     echo '*'.$key.' :  '.$messages.'<br>';
+         // }
+ 
+ 
+ 
+ 
+       }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+   }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+        
   
   
   

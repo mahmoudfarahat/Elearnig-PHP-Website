@@ -10,6 +10,7 @@ include'functions.php';
   if($_SERVER['REQUEST_METHOD'] == "POST"){
   
    $name = Clean($_POST['name']);
+   $price= Clean($_POST['price']);
    $oldImage  = $_POST['oldImage'];
    $image     = '';
 
@@ -65,7 +66,8 @@ include'functions.php';
        }
 
    } 
-  
+
+
 
    include'uploadimg.php';
   
@@ -76,7 +78,7 @@ print_r($errors);
 
     if(count($errors) == 0){
 
-     $sql = "insert into courses  (name , category , target , instructor_id  , cover)  values ( '$name', '$category', '$target' , $session , '$image' )" ;
+     $sql = "insert into courses  (name , category , target , instructor_id  , cover ,price)  values ( '$name', '$category', '$target' , $session , '$image' , $price )" ;
 
      $op = mysqli_query($con,$sql);
       
@@ -141,7 +143,7 @@ print_r($errors);
                 </div>
 
                 <div class="mb-3">
-                    <input name=" " placeholder="Price" class="form-control" />
+                    <input name="price" placeholder="Price" class="form-control" />
                 </div>
 
                 <div class="mb-3">

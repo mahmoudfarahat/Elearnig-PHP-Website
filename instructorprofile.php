@@ -155,6 +155,11 @@ foreach($data_2 as  $x_value) {
                                            
                                         ?>
                 <div class="card  my-2 mb-3  mx-2   border-0" style="width: 15rem;">
+
+                                        
+
+
+
                     <img src="uploads/<?php echo $data['cover'];?>" width="20px" height="200px" class="card-img-top">
 
                     <div class="card-body px-2 py-2 ">
@@ -171,8 +176,16 @@ foreach($data_2 as  $x_value) {
                 <?php  }    ?>
             </div>
         </div>
+        <?php 
+                                        
+                                        if(isset($data_3['picture'])){
+                                            $photo= $data_3['picture'];
+                                        }else{
+                                            $photo ='one.jpg';
+                                        }
+                                        ?>
         <div class="col-4">
-            <img src="uploads/<?php echo $data_3['picture'];?>" width="40px" class="card-img-top profile-img">
+            <img src="uploads/<?php echo $photo;?>" width="40px" class="card-img-top profile-img">
            
             <a href="<?php echo $data_3['Website']  ?>" class="btn btn-outline-primary d-block mb-2">Website</a>
             <a href="<?php echo $data_3['Twitter']  ?>"  class="btn btn-outline-primary d-block mb-2">Twitter</a>

@@ -44,8 +44,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         $sql_2 = 'SELECT * FROM `courses` WHERE instructor_id= '.$id ;
         $sql_3 ='SELECT COUNT(name) FROM courses WHERE instructor_id= '.$id;
 
-        // $sql = "select * from courses where id=".$id;
-        $op_2  = mysqli_query($con,$sql_2);
+       
 
 $op = mysqli_query($con,$sql);
 $op_2  = mysqli_query($con,$sql_2);
@@ -133,8 +132,9 @@ $op_3=mysqli_query($con,$sql_3);
             <div class="d-flex justify-content-between">
                 <?php   
 
-
-
+ 
+ 
+ 
 
 $data_2 = mysqli_fetch_assoc($op_3);
 foreach($data_2 as  $x_value) {
@@ -173,10 +173,10 @@ foreach($data_2 as  $x_value) {
         </div>
         <div class="col-4">
             <img src="uploads/<?php echo $data_3['picture'];?>" width="40px" class="card-img-top profile-img">
-
-            <a class="btn btn-outline-primary d-block mb-2">Website</a>
-            <a class="btn btn-outline-primary d-block mb-2">Twitter</a>
-            <a class="btn btn-outline-primary d-block mb-2">Linkedin</a>
+           
+            <a href="<?php echo $data_3['Website']  ?>" class="btn btn-outline-primary d-block mb-2">Website</a>
+            <a href="<?php echo $data_3['Twitter']  ?>"  class="btn btn-outline-primary d-block mb-2">Twitter</a>
+            <a href="<?php echo $data_3['Linkedin']  ?>"  class="btn btn-outline-primary d-block mb-2">Linkedin</a>
 
         </div>
     </div>

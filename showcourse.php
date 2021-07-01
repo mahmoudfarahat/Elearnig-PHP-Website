@@ -309,11 +309,12 @@ $errorMessages  = array();
  if(isset($_SESSION['id']) &&  $_SESSION['role'] == 2 ){
     
      $buy_cart="payment.php";
+     $alert_teacher ='d-none';
  
  }else if(isset($_SESSION['id']) &&  $_SESSION['role'] == 1){
  
  $buy_cart_display = 'd-none';
- 
+ $alert_teacher ='';
  }
    else {
        # code...
@@ -329,7 +330,7 @@ $errorMessages  = array();
                         <input type="hidden" name="id" value="<?php echo $data['id'];?>">
                     </form>
 
-                    <div class=" my-2 alert alert-success text-center">Sign in as a Student <br> to buy the course</div>
+                    <div class=" <?php echo $alert_teacher ;?> my-2 alert alert-success text-center">Sign in as a Student <br> to buy the course</div>
                     <a href="<?php   echo $buy_cart  ?>"
                         class="btn btn-outline-primary buy-btn my-1 <?php   echo $buy_cart_display  ?>   ">Buy now</a>
                     <p class="text-center">30-day Money-Back Gurantee</p>

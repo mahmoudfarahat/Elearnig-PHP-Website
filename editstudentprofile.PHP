@@ -145,9 +145,7 @@ $image  = $oldImage;
 
 
 
-
-?>
-
+ 
 
 
 
@@ -207,5 +205,4 @@ $image  = $oldImage;
 
   
   <?php include'footer.php' ?>
-</body>
-  </html>
+ 

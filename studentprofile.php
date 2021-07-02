@@ -24,7 +24,10 @@ $op = mysqli_query($con,$sql);
 //  $data_2 = mysqli_fetch_assoc($op_2);
  
 
+$sql_2 = 'SELECT *  FROM students where id = '.$_SESSION['id'] ;
+$op_2 = mysqli_query($con,$sql_2);
 
+$data_2=mysqli_fetch_assoc($op_2);
 ?>
 
 
@@ -35,20 +38,20 @@ $op = mysqli_query($con,$sql);
  <?php include 'nav.php'?>
 
  <section>
-        <h2 class="cart-heading">Mahmoud Farahat</h2>
+        <h2 class="cart-heading"><?php echo $data_2['name']  ?></h2>
 </section>
   <div class="container ">
     <div class=" d-flex justify-content-between profile">
       <div >
       <?php 
                                         
-                                        if(isset($data_3['picture'])){
-                                            $photo= $data_3['picture'];
+                                        if(isset($data_2['picture'])){
+                                            $photo= $data_2['picture'];
                                         }else{
                                             $photo ='one.jpg';
                                         }
                                         ?>
-        <img   class="profile-img mb-3" style="width:150px"  src="uploads/<?php echo $photo  ?>" alt="">
+        <img   class="profile-img mb-3" style="width:150px"  src="uploads/<?php echo $data_2['picture']  ?>" alt="">
       </div>
       <div class=" ">
          
@@ -70,11 +73,9 @@ $op = mysqli_query($con,$sql);
     <div class="d-flex flex-wrap justify-content-between profile">
      <?php  while   (  $data = mysqli_fetch_assoc($op))   {         ?>                        
     <div class="card  my-2" style="width: 15rem;">
-            <img src="images/course-logo-1.png" class="card-img-top" alt="...">
+            <img src="uploads/<?php echo $data['cover'] ?>"   width="20px" height="200px"   class="card-img-top p-0" alt="...">
             <div class="card-body">
               <h5 class="card-title"><?php echo $data['name'] ?></h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
           </div>
      <?php }           ?>                        

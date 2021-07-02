@@ -133,15 +133,30 @@ $_SESSION['courses_id']= $id;
              
           //  $data = mysqli_fetch_assoc($op_2);
 
+          $sql_7 ="select * from cart_relation   WHERE course_id=$id and student_id=".$_SESSION['id']  ;
         
+          $op_7 = mysqli_query($con,$sql_7);
 
- 
+          $data_7 = mysqli_fetch_assoc($op_7);
+print_r($op_7);
+          echo '1';
+
+if (isset($data_7)){
+  $sql_3 ="UPDATE `cart_relation` SET `bought`=1 , `oncart`=0  WHERE course_id=$id and student_id=".$_SESSION['id'];
+        
+  $op_3 = mysqli_query($con,$sql_3);
+  echo '2';
+
+}else{
   $sql_4 ="INSERT INTO `cart_relation`(`course_id`, `student_id` , `bought`, `oncart` ) VALUES ( $id   ,".$_SESSION['id'].",  1 , 0  )";
 
-          $op_4 = mysqli_query($con,$sql_4);
+  $op_4 = mysqli_query($con,$sql_4);
+  echo '3';
+}
 
-
-           
+       
+          
+ 
           //  $_SESSION['Name'] =  $data['Name'] ;
 
           //  $role = 1;
@@ -159,7 +174,7 @@ $_SESSION['courses_id']= $id;
  
        }else{
  
-        echo 'sdsdsd';
+        echo '4 ';
          // foreach($errorMessages as $key => $messages){
  
          //     echo '*'.$key.' :  '.$messages.'<br>';

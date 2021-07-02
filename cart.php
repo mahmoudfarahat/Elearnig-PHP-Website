@@ -13,7 +13,7 @@
  
  
 //  $sql = 'SELECT courses.* , instructors.name as inst_name , instructors.id as inst_id FROM courses join instructors on  instructors.id =  courses.instructor_id';
- $sql = 'SELECT courses.* , cart_relation.* FROM courses JOIN cart_relation ON cart_relation.course_id = courses.id WHERE oncart = 1 and student_id = '.$_SESSION['id'];
+ $sql = 'SELECT courses.* , cart_relation.* , courses.id as cor_id FROM courses JOIN cart_relation ON cart_relation.course_id = courses.id WHERE oncart = 1 and student_id = '.$_SESSION['id'];
   
  $sql_2 ='SELECT COUNT(course_id) FROM cart_relation WHERE oncart = 1 and student_id = '.$_SESSION['id'];
  
@@ -67,7 +67,8 @@ $op_2 = mysqli_query($con,$sql_2);
                                  <a href='deletecart.php?id=<?php echo $data['id']; ?>'
                                      class="  text-center  d-block  ">Delete</a>
                                  <hr class="m-0">
-                                 <a href="payment.php" class=" text-center   d-block">Buy</a>
+                            
+                                 <a href="payment.php?id=<?php echo $data['cor_id']; ?>" class=" text-center   d-block">Buy</a>
                              </div>
                          </div>
 
@@ -82,7 +83,7 @@ $op_2 = mysqli_query($con,$sql_2);
              <h6>total</h6>
              <h4>$13.99</h4>
              <h6>&94.99</h6>
-             <a href="" class="btn btn-danger btn-lg d-block">Checkout</a>
+             <a href="" class="btn btn-danger btn-lg d-block disabled">Checkout</a>
 
          </div>
      </div>

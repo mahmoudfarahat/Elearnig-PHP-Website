@@ -37,7 +37,7 @@ $errorMessages  = array();
 
 
  
-          $sql = "insert into cart_relation ( `student_id`, `course_id`) values ( $student_id ,$id)";
+          $sql = "insert into cart_relation ( `student_id`, `course_id` ,`oncart`) values ( $student_id ,$id , 1)";
         
   
         $op= mysqli_query($con,$sql);

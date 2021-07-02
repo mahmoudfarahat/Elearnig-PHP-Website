@@ -7,6 +7,7 @@
  include'db.php';
  if (isset($_SESSION['id']) && $_SESSION['role'] == 2   ){
 
+
  }elseif(isset($_SESSION['id']) && $_SESSION['role'] == 1 ){
  
    header("location:index.php");
@@ -19,79 +20,146 @@
  
  include'functions.php';  
    
+
+
+ $errorMessages  = array();
+ if($_SERVER['REQUEST_METHOD'] == "GET"){
+
+  if(isset($_GET['id'])){ 
+  $id = filter_var($_GET['id'],FILTER_SANITIZE_NUMBER_INT);
+ 
+  if(filter_var($id,FILTER_VALIDATE_INT)){
+      // CODE 
+   
+$_SESSION['courses_id']= $id;
+
+      $sql = "select * from courses where id=".$id;
+
+     
+    
+
+      $op  = mysqli_query($con,$sql);
+
+      $count = mysqli_num_rows($op);
+
+
+      if($count == 0){
+          $message = "Invalid Id";  
+          $errorMessages['id'] = 1 ;
+  
+        }
+  
+
+      }else{
+          $message = "InValid id value";
+          $errorMessages['id'] = 1 ;
+      }
+
+  }else{
+      $message     = "Id Not Founded";  
+      $errorMessages['id'] = 1 ;
+    }
+
+
+    if(count($errorMessages) > 0 ){
+      $_SESSION['message'] = $message;
+      // header("Location: display.php");
+      echo 'dsdsds';
+  }else{
+      $data = mysqli_fetch_assoc($op);
+  }
+   
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    
    
    if($_SERVER['REQUEST_METHOD'] == "POST"){
      // CODE ... 
  
  
-     $email    = Clean($_POST['email']);
-   
+     $coupon    = Clean($_POST['coupon']);
+     $id       = filter_var($_POST['id'],FILTER_SANITIZE_NUMBER_INT);
      $errorMessages = [];
  
  
  
        // Validate email 
-       if(empty($email)){
-         $errorMessages['email'] = "Email Field Required";
+       if(empty($coupon)){
+         $errorMessages['coupon'] = "coupon Field Required";
       }else{
        
        
-       if(!(filter_var($email,FILTER_VALIDATE_EMAIL))){    
-           $errorMessages['email']  = "Invalid Email";
-       }
-   
+       
       }
-   
-   
-   
-    
- 
-  
+      
+      
        if(count($errorMessages) == 0){
  
        
         
+           
+         $sql_2 = "select * from  courses  where coupon='$coupon' and id=".$id ;
+     
+            $op_2 = mysqli_query($con,$sql_2);
           
-         $sql = "select * from  courses where email='$email' and password = '$password' " ;
- 
-      
-       
-        
-           $op = mysqli_query($con,$sql);
-          
-          
+            print_r($op_2);
        
        
-         $count = mysqli_num_rows($op);
-      
- 
+         $count_2 = mysqli_num_rows($op_2);
+          
          
-         if($count == 1){
+         if($count_2 == 1){
              // login code .... 
              
-           $data = mysqli_fetch_assoc($op);
-           
-           $_SESSION['id']   =  $data['id'] ;
-           $_SESSION['Name'] =  $data['Name'] ;
-           
-           $role = 1;
+          //  $data = mysqli_fetch_assoc($op_2);
+
+        
+
  
-           $_SESSION['role'] =$role;
-             header("Location: index.php")   ;
+  $sql_4 ="INSERT INTO `cart_relation`(`course_id`, `student_id` , `bought`, `oncart` ) VALUES ( $id   ,".$_SESSION['id'].",  1 , 0  )";
+
+          $op_4 = mysqli_query($con,$sql_4);
+
+
+           
+          //  $_SESSION['Name'] =  $data['Name'] ;
+
+          //  $role = 1;
+ 
+          //  $_SESSION['role'] =$role;
+            //  header("Location: opencourse.php?id=".$id)   ;
  
          } 
            
          else{
-           $errorMessages['email']  = "Invalid Email";
-           $errorMessages['password']  = "Invalid Password";
- 
+           $errorMessages['coupon']  = "Invalid coupon";
+           print_r( $errorMessages['coupon']);
              // echo 'Error in Email || Password try again ';
          }
  
        }else{
  
- 
+        echo 'sdsdsd';
          // foreach($errorMessages as $key => $messages){
  
          //     echo '*'.$key.' :  '.$messages.'<br>';
@@ -251,12 +319,19 @@
             <div class="card-body">
               <h5 class="card-title">Do you have a Coupon?</h5>
                
-              <input type="text" placeholder="Coupon" class="form-control my-3">
 
+              <form action="<?php  echo htmlspecialchars($_SERVER['PHP_SELF']); ?>"   method="post">
               
-              <a href="#" class="btn btn-lg btn-success d-block"
-                >Complete Process</a
+              <input name="coupon" placeholder="Coupon" class="form-control   "  <?php if(isset($errorMessages["coupon"])) echo "style='box-shadow: 0 .5px 1px rgba(0, 0, 0, 0.045) inset, 0 0 5px  red '" ?> >
+              <input type="hidden" name="id" value="<?php echo $data['id'];?>" >
+               <?php     if (isset($errorMessages["coupon"])) echo '<div class="text-danger mb-1">' .$errorMessages["coupon"]. '</div>'  ;  ?>
+              <button   class="btn btn-lg btn-success d-block my-1"
+                >Complete Process</button
               >
+              </form>
+             
+              
+            </div> 
             </div>
           </div>
         </div>

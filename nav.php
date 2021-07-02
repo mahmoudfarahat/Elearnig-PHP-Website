@@ -2,7 +2,7 @@
 include 'db.php';
  
 if (isset($_SESSION['id'])){
-$sql_9 ='SELECT COUNT(course_id) FROM cart_relation WHERE student_id = '.$_SESSION['id'];
+$sql_9 ='SELECT COUNT(course_id) FROM cart_relation WHERE oncart = 1 and student_id = '.$_SESSION['id'];
 $op_9 = mysqli_query($con,$sql_9);
 $data_9 = mysqli_fetch_assoc($op_9);
 }

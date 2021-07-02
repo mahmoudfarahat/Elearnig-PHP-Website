@@ -13,9 +13,9 @@
  
  
 //  $sql = 'SELECT courses.* , instructors.name as inst_name , instructors.id as inst_id FROM courses join instructors on  instructors.id =  courses.instructor_id';
- $sql = 'SELECT courses.* , cart_relation.* FROM courses JOIN cart_relation ON cart_relation.course_id = courses.id WHERE student_id = '.$_SESSION['id'];
+ $sql = 'SELECT courses.* , cart_relation.* FROM courses JOIN cart_relation ON cart_relation.course_id = courses.id WHERE oncart = 1 and student_id = '.$_SESSION['id'];
   
- $sql_2 ='SELECT COUNT(course_id) FROM cart_relation WHERE student_id = '.$_SESSION['id'];
+ $sql_2 ='SELECT COUNT(course_id) FROM cart_relation WHERE oncart = 1 and student_id = '.$_SESSION['id'];
  
 
 

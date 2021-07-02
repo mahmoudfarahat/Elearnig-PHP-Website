@@ -10,11 +10,19 @@ if(isset($_SESSION['id'])){
 
 
 
+$sql = 'SELECT courses.* , cart_relation.* FROM courses JOIN cart_relation ON cart_relation.course_id = courses.id WHERE bought=1 and student_id = '.$_SESSION['id'] ;
+  
+// $sql_2 ='SELECT COUNT(course_id) FROM cart_relation WHERE student_id = '.$_SESSION['id'];
 
 
 
-
-
+$op = mysqli_query($con,$sql);
+    
+// $op_2 = mysqli_query($con,$sql_2);
+ 
+ 
+//  $data_2 = mysqli_fetch_assoc($op_2);
+ 
 
 
 ?>
@@ -32,7 +40,15 @@ if(isset($_SESSION['id'])){
   <div class="container ">
     <div class=" d-flex justify-content-between profile">
       <div >
-        <img   class="profile-img mb-3" style="width:150px"  src="images/profile pic 1.jpg" alt="">
+      <?php 
+                                        
+                                        if(isset($data_3['picture'])){
+                                            $photo= $data_3['picture'];
+                                        }else{
+                                            $photo ='one.jpg';
+                                        }
+                                        ?>
+        <img   class="profile-img mb-3" style="width:150px"  src="uploads/<?php echo $photo  ?>" alt="">
       </div>
       <div class=" ">
          
@@ -49,31 +65,21 @@ if(isset($_SESSION['id'])){
       <h4 class="align-self-center">Courses you're enrolled in<span>(8)</span></h4>
 
     </div>
+
+
     <div class="d-flex flex-wrap justify-content-between profile">
-        <div class="card  my-2" style="width: 15rem;">
+     <?php  while   (  $data = mysqli_fetch_assoc($op))   {         ?>                        
+    <div class="card  my-2" style="width: 15rem;">
             <img src="images/course-logo-1.png" class="card-img-top" alt="...">
             <div class="card-body">
-              <h5 class="card-title">Card title</h5>
+              <h5 class="card-title"><?php echo $data['name'] ?></h5>
               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
               <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
           </div>
-          <div class="card  my-2" style="width: 15rem;">
-            <img src="images/course-logo-1.png" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-           <div class="card  my-2" style="width: 15rem;">
-            <img src="images/course-logo-1.png" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
+     <?php }           ?>                        
+      
+        
 
     </div>
 

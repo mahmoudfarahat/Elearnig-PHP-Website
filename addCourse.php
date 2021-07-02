@@ -2,8 +2,11 @@
 
   include'db.php';
 include'functions.php';
- 
 
+
+$sql = "select * from courses ";
+$op  = mysqli_query($con,$sql);
+ $data=mysqli_fetch_assoc($op);
 
   $errors  = array();
   $message = ""; 
@@ -67,6 +70,8 @@ include'functions.php';
 
    } 
 
+   
+ 
 
 
    include'uploadimg.php';
@@ -115,31 +120,32 @@ print_r($errors);
 <?php include('header.php'); ?>
 
 <?php require('nav.php') ?>
-<div class="container">
+<div class="container col-6">
 
-    <form class=" my-5 p-3 border" action="<?php htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post" enctype="multipart/form-data">
-        <div class="row">
-            <div class="col-6">
+    <form class=" my-5 p-3 border" action="<?php htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post"
+        enctype="multipart/form-data">
+        <div class=" ">
+            <div class=" ">
                 <h3>Course Information:</h3>
                 <div class="mb-3">
                     <input name="name" placeholder="Course Name" type="text" class="form-control" />
                 </div>
 
                 <div class="mb-3">
-                    <input name="category"  placeholder="category" class="form-control" />
+                    <input name="category" placeholder="category" class="form-control" />
                 </div>
                 <div class="mb-3 row">
                     <label class="col-3    align-self-center ">Course Cover</label>
                     <div class="col-9">
-                        <input  name="image"  placeholder="" type="file" class="  form-control " />
+                        <input name="image" placeholder="" type="file" class="  form-control " />
 
                     </div>
                 </div>
                 <input type="hidden" value="<?php echo $data['cover'];?>" name="oldImage">
-
+               
                 <div class="mb-3">
-                    <textarea name="target" placeholder="ًWhat will students learn in your course?" class="form-control" name=""
-                        cols="30" rows="5"></textarea>
+                    <textarea name="target" placeholder="ًWhat will students learn in your course?" class="form-control"
+                        name="" cols="30" rows="5"></textarea>
                 </div>
 
                 <div class="mb-3">
@@ -150,8 +156,19 @@ print_r($errors);
                     <input name=" " placeholder="Avaliable Coupon" class="form-control" />
                 </div>
             </div>
-            <div class="col-6">
-                <div class="mb-3">
+
+
+            <div class=" ">
+                
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary d-block">Submit</button>
+    </form>
+
+    <form action="addcontent_action.php" class="border"  method="post" enctype="multipart/form-data" >
+
+    <div class="mb-3 mx-3">
                     <h3>Course Content:</h3>
 
                     <div class="row">
@@ -161,19 +178,23 @@ print_r($errors);
                                     <label class="form-label">Course Caption:</label>
                                     <div class="p-1">1</div>
                                 </div>
-                                <input  name=" " type="text" class="form-control mb-3" />
-                                <input name=" "  placeholder="" type="file" class="form-control" id="exampleInputPassword1" />
+                                <input name="name" type="text" class="form-control mb-3" />
+                                <input name="image" placeholder="" type="file" class="form-control"
+                                    id="exampleInputPassword1" />
                             </div>
+ 
+                            <input type="hidden" value="<?php echo $data['id'];?>" name="id">
+                            
                         </div>
                         <div class="col-2">
                             <button class="btn btn-outline-primary">+</button>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+                <?php echo $data['id'];?>
 
-        <button type="submit" class="btn btn-primary d-block">Submit</button>
+                <button type="submit" class="btn btn-primary d-block mx-3 my-3">Submit</button>
+
     </form>
 </div>
 <?php include'footer.php' ?>

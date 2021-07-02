@@ -308,20 +308,30 @@ $errorMessages  = array();
  
  if(isset($_SESSION['id']) &&  $_SESSION['role'] == 2 ){
     
-     $buy_cart="payment.php";
+     $buy_cart="payment.php?id=".$data['id'];
      $alert_teacher ='d-none';
- 
+     
+
  }else if(isset($_SESSION['id']) &&  $_SESSION['role'] == 1){
  
  $buy_cart_display = 'd-none';
  $alert_teacher ='';
- }
+  }
    else {
        # code...
        $buy_cart="login.php";
-      
+       $alert_teacher ='d-none';
    }
  
+ if(isset($_SESSION['id'] ))  {
+   if ( $data['instructor_id'] == $_SESSION['id'] ){
+
+    $alert_teacher ='d-none';
+    $open_course="";
+}else{
+    $open_course="d-none";
+}}else{
+    $open_course="d-none";}
  ?>
 
                     <form action="cart_action.php" method="post">
@@ -329,8 +339,10 @@ $errorMessages  = array();
                             cart</button>
                         <input type="hidden" name="id" value="<?php echo $data['id'];?>">
                     </form>
+                    
+                    <a href="opencourse.php?id=<?php echo $data['id'] ?>" class="btn btn-success d-block <?php  echo  $open_course ?>"> Open</a>
 
-                    <div class=" <?php echo $alert_teacher ;?> my-2 alert alert-success text-center">Sign in as a Student <br> to buy the course</div>
+                    <div class=" <?php echo $alert_teacher ;?> my-2 alert alert-danger text-center">Sign in as a Student <br> to buy the course</div>
                   
                     <?php 
                     //   if(isset($_SESSION['id']) && $_SESSION['role'] == 1 ){

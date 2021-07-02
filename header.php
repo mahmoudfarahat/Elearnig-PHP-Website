@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="css/addcourse.css" />
 <link rel="stylesheet" href="css/signup.css">
 <link rel="stylesheet" href="css/studentprofile.css">
+<link rel="stylesheet" href="css/opencourse.css">
 
 
 <link rel="stylesheet" href="css/instructorprofile.css">

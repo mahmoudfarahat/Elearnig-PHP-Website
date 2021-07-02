@@ -156,7 +156,7 @@ foreach($data_2 as  $x_value) {
                                         ?>
                 <div class="card  my-2 mb-3  mx-2   border-0" style="width: 15rem;">
 
-                                        
+
 
 
 
@@ -166,7 +166,7 @@ foreach($data_2 as  $x_value) {
                         <h5 class="card-title  my-0 py-0 "><?php echo $data['name']; ?></h5>
                         <!-- <a href="">By <?php echo $data_3['Name'];?></a>
                          -->
-                         <p class="card-text">$<?php echo $data['price']; ?> </p>
+                        <p class="card-text">$<?php echo $data['price']; ?> </p>
                     </div>
                 </div>
 
@@ -176,20 +176,24 @@ foreach($data_2 as  $x_value) {
                 <?php  }    ?>
             </div>
         </div>
+
         <?php 
                                         
-                                        if(isset($data_3['picture'])){
-                                            $photo= $data_3['picture'];
+                                        if(isset($data_2['picture'])){
+
+                                            $photo= $data_2['picture'];
+                                            ;
                                         }else{
                                             $photo ='one.jpg';
                                         }
+                                   
                                         ?>
         <div class="col-4">
             <img src="uploads/<?php echo $photo;?>" width="40px" class="card-img-top profile-img">
-           
+
             <a href="<?php echo $data_3['Website']  ?>" class="btn btn-outline-primary d-block mb-2">Website</a>
-            <a href="<?php echo $data_3['Twitter']  ?>"  class="btn btn-outline-primary d-block mb-2">Twitter</a>
-            <a href="<?php echo $data_3['Linkedin']  ?>"  class="btn btn-outline-primary d-block mb-2">Linkedin</a>
+            <a href="<?php echo $data_3['Twitter']  ?>" class="btn btn-outline-primary d-block mb-2">Twitter</a>
+            <a href="<?php echo $data_3['Linkedin']  ?>" class="btn btn-outline-primary d-block mb-2">Linkedin</a>
 
         </div>
     </div>
